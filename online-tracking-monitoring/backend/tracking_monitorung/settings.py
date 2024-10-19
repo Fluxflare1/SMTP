@@ -1,3 +1,21 @@
+
+
+
+INSTALLED_APPS = [
+    # other apps
+    'channels',
+]
+
+ASGI_APPLICATION = 'tracking_monitoring.asgi.application'
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
+
+
+
+
 # settings.py
 
 INSTALLED_APPS = [
