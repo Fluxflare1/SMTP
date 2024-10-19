@@ -1,6 +1,22 @@
 
 
 
+from twilio.rest import Client
+from django.conf import settings
+
+def send_sms_notification(vehicle_id, geofence_name, status):
+    client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+
+    message = client.messages.create(
+        body=f"Vehicle {vehicle_id} has {status} the geofence: {geofence_name}.",
+        from_=settings.TWILIO_PHONE_NUMBER,
+        to='+1234567890'  # Replace with actual phone number
+    )
+    return message.sid
+
+
+
+
 
 from django.core.mail import send_mail
 from django.conf import settings
