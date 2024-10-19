@@ -1,5 +1,43 @@
 
 
+
+
+
+.hero-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url('/assets/hero-bg.jpg') center center/cover no-repeat;
+}
+
+.hero-content {
+  text-align: center;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    height: auto;
+    padding: 2rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1.25rem;
+  }
+
+  .cta-buttons .btn {
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
+  }
+}
+
+
+
 .cta-buttons .btn {
   padding: 0.75rem 2rem;
   font-size: 1rem;
