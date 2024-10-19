@@ -25,6 +25,10 @@
   padding: 0.75rem 2rem;
   font-size: 1rem;
   margin-right: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 .primary-btn {
@@ -35,4 +39,8 @@
 .secondary-btn {
   background-color: #6c757d;
   color: white;
+}
+
+.primary-btn:hover, .secondary-btn:hover {
+  opacity: 0.9;
 }
