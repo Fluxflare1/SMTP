@@ -1,3 +1,23 @@
+
+
+
+
+
+from django.db import models
+
+class Geofence(models.Model):
+    name = models.CharField(max_length=100)
+    center_latitude = models.FloatField()
+    center_longitude = models.FloatField()
+    radius_in_km = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.radius_in_km} km"
+
+
+
+
 from django.db import models
 
 class Vehicle(models.Model):
