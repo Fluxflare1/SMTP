@@ -1,6 +1,17 @@
 
 
 
+
+from django.core.mail import send_mail
+from django.conf import settings
+
+def send_email_notification(vehicle_id, geofence_name, status):
+    subject = f"Geofence Alert for Vehicle {vehicle_id}"
+    message = f"Vehicle {vehicle_id} has {status} the geofence: {geofence_name}."
+    recipient_list = ['recipient@example.com']  # Replace with real email addresses
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list)
+
+
 def monitor_driver_behavior(vehicle):
     if vehicle.acceleration > ACCELERATION_THRESHOLD:
         trigger_geofence_alert(vehicle.vehicle_id, "harsh acceleration", "triggered")
