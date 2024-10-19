@@ -1,6 +1,10 @@
 
 
 
+CORNERING_THRESHOLD = 30  # Threshold for harsh cornering in degrees
+DISTRACTED_DRIVING_THRESHOLD = 15  # Threshold for sudden phone usage or distractions
+
+
 
 
 from channels.layers import get_channel_layer
