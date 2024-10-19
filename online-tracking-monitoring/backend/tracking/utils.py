@@ -1,3 +1,19 @@
+
+
+
+import time
+
+def track_idle_time(vehicle):
+    if vehicle.is_stationary:
+        current_time = time.time()
+        idle_duration = current_time - vehicle.last_movement_time
+
+        if idle_duration > IDLE_TIME_THRESHOLD:
+            trigger_geofence_alert(vehicle.vehicle_id, "idle time", "has exceeded idle time")
+
+
+
+
 import math
 
 def haversine(lat1, lon1, lat2, lon2):
