@@ -1,6 +1,15 @@
 
 
 
+def monitor_driver_behavior(vehicle):
+    if vehicle.acceleration > ACCELERATION_THRESHOLD:
+        trigger_geofence_alert(vehicle.vehicle_id, "harsh acceleration", "triggered")
+    if vehicle.braking > BRAKING_THRESHOLD:
+        trigger_geofence_alert(vehicle.vehicle_id, "harsh braking", "triggered")
+
+
+
+
 import time
 
 def track_idle_time(vehicle):
