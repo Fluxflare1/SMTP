@@ -1,5 +1,25 @@
 
 
+
+INSTALLED_APPS = [
+    # Other apps
+    'channels',
+]
+
+ASGI_APPLICATION = 'tracking_monitoring.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],  # Make sure Redis is installed and running
+        },
+    },
+}
+
+
+
+
 TWILIO_ACCOUNT_SID = 'your_account_sid'
 TWILIO_AUTH_TOKEN = 'your_auth_token'
 TWILIO_PHONE_NUMBER = 'your_twilio_phone_number'
