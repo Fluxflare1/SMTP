@@ -1,4 +1,20 @@
 
+def trigger_geofence_alert(vehicle_id, geofence_name, status):
+    # Send WebSocket notifications
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        'geofence_alerts',
+        {
+            'type': 'send_geofence_alert',
+            'message': f"Vehicle {vehicle_id} has {status} the geofence: {geofence_name}"
+        }
+    )
+
+    # Send Email notification
+    send_email_notification(vehicle_id, geofence_name, status)
+
+    # Send SMS notification
+    send_sms_notification(vehicle_id, geofence_name, status)
 
 
 
