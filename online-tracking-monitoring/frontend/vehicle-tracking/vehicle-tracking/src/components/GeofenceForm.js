@@ -1,3 +1,43 @@
+
+
+
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const GeofenceCheck = () => {
+    const [vehicleId, setVehicleId] = useState('');
+    const [message, setMessage] = useState('');
+
+    const checkGeofence = (e) => {
+        e.preventDefault();
+
+        axios.get(`http://localhost:8000/api/check-geofence/${vehicleId}/`)
+            .then(response => {
+                setMessage(response.data.message);
+            })
+            .catch(error => {
+                console.error("There was an error checking the geofence!", error);
+                setMessage("Error occurred while checking geofence.");
+            });
+    };
+
+    return (
+        <div>
+            <h2>Check Vehicle Geofence</h2>
+            <form onSubmit={checkGeofence}>
+                <input type="text" placeholder="Vehicle ID" value={vehicleId} onChange={e => setVehicleId(e.target.value)} required />
+                <button type="submit">Check Geofence</button>
+            </form>
+            {message && <p>{message}</p>}
+        </div>
+    );
+};
+
+export default GeofenceCheck;
+
+
+
+
 import React, { useState } from 'react';
 import axios from 'axios';
 
