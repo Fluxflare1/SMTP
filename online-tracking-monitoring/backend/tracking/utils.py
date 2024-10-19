@@ -1,6 +1,28 @@
 
 
 
+
+import requests
+from django.conf import settings
+
+def fetch_driver_data(vehicle_id):
+    url = f'https://api.telemetryservice.com/vehicles/{vehicle_id}/data'
+    headers = {'Authorization': f'Bearer {settings.TELEMETRY_API_KEY}'}
+    response = requests.get(url, headers=headers)
+    data = response.json()
+    return data
+
+def monitor_driver_advanced_behavior(vehicle_id):
+    data = fetch_driver_data(vehicle_id)
+    
+    if data['acceleration'] > ACCELERATION_THRESHOLD:
+        trigger_geofence_alert(vehicle_id, "harsh acceleration", "triggered")
+    if data['braking'] > BRAKING_THRESHOLD:
+        trigger_geofence_alert(vehicle_id, "harsh braking", "triggered")
+
+
+
+
 from twilio.rest import Client
 from django.conf import settings
 
