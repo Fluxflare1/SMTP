@@ -1,3 +1,17 @@
+
+
+
+
+from .models import Geofence
+
+class GeofenceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Geofence
+        fields = ['id', 'name', 'center_latitude', 'center_longitude', 'radius_in_km', 'created_at']
+
+
+
+
 from rest_framework import serializers
 from .models import Vehicle
 
