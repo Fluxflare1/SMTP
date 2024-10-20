@@ -1,6 +1,30 @@
 
 
 
+
+
+
+from django.http import JsonResponse
+from tracking.models import Vehicle  # Assuming there is a Vehicle model to store vehicle info
+
+def get_all_vehicles_location(request):
+    vehicles = Vehicle.objects.filter(is_active=True)  # Get all active vehicles
+    vehicle_data = [
+        {
+            'vehicle_id': vehicle.vehicle_id,
+            'latitude': vehicle.latitude,
+            'longitude': vehicle.longitude,
+            'status': vehicle.status,  # idle, active, etc.
+        }
+        for vehicle in vehicles
+    ]
+    return JsonResponse({'vehicles': vehicle_data})
+
+
+
+
+
+
 CORNERING_THRESHOLD = 30  # Threshold for harsh cornering in degrees
 DISTRACTED_DRIVING_THRESHOLD = 15  # Threshold for sudden phone usage or distractions
 
