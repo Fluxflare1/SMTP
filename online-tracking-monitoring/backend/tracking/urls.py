@@ -2,6 +2,22 @@
 
 
 
+
+
+
+from django.urls import path
+from .views import check_idle_time
+
+urlpatterns = [
+    # Other URL patterns...
+    path('check-idle-time/<str:vehicle_id>/', check_idle_time, name='check-idle-time'),
+]
+
+
+
+
+
+
 from django.urls import path
 from .views import get_all_vehicles_location
 
