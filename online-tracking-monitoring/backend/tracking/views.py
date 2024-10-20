@@ -3,6 +3,30 @@
 
 
 
+
+from django.http import JsonResponse
+from .models import Vehicle
+
+IDLE_THRESHOLD = 15  # idle time threshold in minutes
+
+def check_idle_time(vehicle_id):
+    vehicle = Vehicle.objects.get(vehicle_id=vehicle_id)
+    vehicle.update_idle_status()
+    idle_duration = vehicle.get_idle_duration()
+
+    if idle_duration >= IDLE_THRESHOLD:
+        trigger_idle_alert(vehicle_id, idle_duration)
+    
+    return JsonResponse({'status': 'success', 'idle_duration': idle_duration})
+
+def trigger_idle_alert(vehicle_id, idle_duration):
+    # Logic for triggering an idle alert (could be a WebSocket message, email, etc.)
+    print(f"Alert: Vehicle {vehicle_id} has been idle for {idle_duration} minutes.")
+
+
+
+
+
 from django.http import JsonResponse
 from .models import Vehicle
 
