@@ -1,4 +1,28 @@
 
+
+
+from django.http import JsonResponse
+from .models import Vehicle
+
+def get_all_vehicles_data(request):
+    vehicles = Vehicle.objects.all()
+    vehicle_data = []
+
+    for vehicle in vehicles:
+        vehicle_data.append({
+            'vehicle_id': vehicle.vehicle_id,
+            'latitude': vehicle.latitude,
+            'longitude': vehicle.longitude,
+            'total_distance_traveled': vehicle.total_distance_traveled,
+            'immobilized': vehicle.immobilized,
+            'speed': vehicle.speed
+        })
+
+    return JsonResponse({'vehicles': vehicle_data})
+
+
+
+
 from django.http import JsonResponse
 from .models import Vehicle
 
