@@ -2,6 +2,29 @@
 
 
 
+
+
+from django.http import JsonResponse
+from tracking.models import Vehicle
+
+CORNERING_THRESHOLD = 30  # Threshold for harsh cornering in degrees
+DISTRACTED_DRIVING_THRESHOLD = 15  # Threshold for distracted driving
+
+def monitor_driver_behavior(request, vehicle_id):
+    vehicle = Vehicle.objects.get(vehicle_id=vehicle_id)
+    if vehicle.acceleration > ACCELERATION_THRESHOLD:
+        trigger_geofence_alert(vehicle_id, "harsh acceleration", "triggered")
+    if vehicle.braking > BRAKING_THRESHOLD:
+        trigger_geofence_alert(vehicle_id, "harsh braking", "triggered")
+    if vehicle.cornering > CORNERING_THRESHOLD:
+        trigger_geofence_alert(vehicle_id, "harsh cornering", "triggered")
+    if vehicle.distracted_driving_score > DISTRACTED_DRIVING_THRESHOLD:
+        trigger_geofence_alert(vehicle_id, "distracted driving", "triggered")
+    return JsonResponse({'status': 'Driver behavior monitored'})
+
+
+
+
 from django.http import JsonResponse
 from tracking.models import Geofence  # Assuming there is a Geofence model
 
