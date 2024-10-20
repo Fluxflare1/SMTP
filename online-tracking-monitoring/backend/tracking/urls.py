@@ -1,7 +1,13 @@
 
 
 
+from django.urls import path
+from .views import update_vehicle_location
 
+urlpatterns = [
+    # Other URL patterns...
+    path('update-vehicle-location/<str:vehicle_id>/', update_vehicle_location, name='update-vehicle-location'),
+]
 
 
 
@@ -12,8 +18,6 @@ urlpatterns = [
     # Other URL patterns...
     path('check-idle-time/<str:vehicle_id>/', check_idle_time, name='check-idle-time'),
 ]
-
-
 
 
 
