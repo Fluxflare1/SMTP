@@ -4,6 +4,20 @@
 
 
 
+from geopy.distance import geodesic
+from tracking.models import Vehicle
+
+def calculate_distance_traveled(vehicle_id):
+    vehicle = Vehicle.objects.get(vehicle_id=vehicle_id)
+    distance = geodesic((vehicle.start_latitude, vehicle.start_longitude), (vehicle.latitude, vehicle.longitude)).km
+    vehicle.total_distance += distance
+    vehicle.save()
+    return vehicle.total_distance
+
+
+
+
+
 
 from django.utils.timezone import now
 from tracking.models import Vehicle
