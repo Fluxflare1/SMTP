@@ -1,6 +1,18 @@
 
 
 
+from django.http import JsonResponse
+from tracking.models import Vehicle  # Assuming Vehicle model stores fuel data
+
+def get_fuel_consumption(request, vehicle_id):
+    vehicle = Vehicle.objects.get(vehicle_id=vehicle_id)
+    fuel_data = {
+        'current_fuel_level': vehicle.fuel_level,  # Assuming fuel level is stored
+        'average_fuel_consumption': vehicle.average_fuel_consumption,  # Historical fuel consumption
+    }
+    return JsonResponse(fuel_data)
+
+
 
 
 
