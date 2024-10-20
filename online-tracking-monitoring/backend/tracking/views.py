@@ -1,5 +1,20 @@
 
+from django.http import JsonResponse
+from .models import Vehicle
 
+def update_vehicle_location(request, vehicle_id):
+    # Example data: {'latitude': 10.123, 'longitude': 12.456}
+    new_latitude = float(request.GET.get('latitude'))
+    new_longitude = float(request.GET.get('longitude'))
+
+    vehicle = Vehicle.objects.get(vehicle_id=vehicle_id)
+    distance_traveled = vehicle.calculate_distance(new_latitude, new_longitude)
+
+    return JsonResponse({
+        'status': 'success',
+        'distance_traveled': distance_traveled,
+        'total_distance_traveled': vehicle.total_distance_traveled
+    })
 
 
 
