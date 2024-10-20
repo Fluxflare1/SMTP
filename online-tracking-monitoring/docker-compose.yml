@@ -1,40 +1,28 @@
+
+
 version: '3'
 
 services:
-  backend:
-    build:
-      context: ./backend
-    container_name: tracking_backend
-    command: python manage.py runserver 0.0.0.0:8000
+  web:
+    build: .
+    command: python /app/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
     ports:
       - "8000:8000"
-    volumes:
-      - ./backend:/usr/src/app
+    env_file:
+      - .env
     depends_on:
       - db
 
-  frontend:
-    build:
-      context: ./frontend
-    container_name: tracking_frontend
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/usr/src/app
-    depends_on:
-      - backend
-
   db:
     image: postgres:13
-    container_name: tracking_db
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: tracking_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: tracking_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
 
 volumes:
   postgres_data:
