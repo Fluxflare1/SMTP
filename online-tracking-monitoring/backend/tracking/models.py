@@ -1,5 +1,19 @@
 
+class Vehicle(models.Model):
+    vehicle_id = models.CharField(max_length=100)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    total_distance_traveled = models.FloatField(default=0)
+    immobilized = models.BooleanField(default=False)  # New field for immobilization status
+    speed = models.FloatField()
 
+    def immobilize(self):
+        self.immobilized = True
+        self.save()
+
+    def release_immobilization(self):
+        self.immobilized = False
+        self.save()
 
 
 
