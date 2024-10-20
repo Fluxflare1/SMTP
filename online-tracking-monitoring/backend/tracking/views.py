@@ -3,6 +3,22 @@
 
 
 
+from django.http import JsonResponse
+from .models import Vehicle
+
+def immobilize_vehicle(request, vehicle_id):
+    vehicle = Vehicle.objects.get(vehicle_id=vehicle_id)
+    vehicle.immobilize()
+    return JsonResponse({'status': 'immobilized', 'vehicle_id': vehicle_id})
+
+def release_vehicle_immobilization(request, vehicle_id):
+    vehicle = Vehicle.objects.get(vehicle_id=vehicle_id)
+    vehicle.release_immobilization()
+    return JsonResponse({'status': 'released', 'vehicle_id': vehicle_id})
+
+
+
+
 
 from django.http import JsonResponse
 from tracking.models import Vehicle
