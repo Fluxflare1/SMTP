@@ -4,6 +4,17 @@
 
 
 
+from tracking.models import Vehicle
+
+def immobilize_vehicle(request, vehicle_id):
+    vehicle = Vehicle.objects.get(vehicle_id=vehicle_id)
+    vehicle.is_immobilized = True
+    vehicle.save()
+    return JsonResponse({'status': 'Vehicle immobilized successfully'})
+
+
+
+
 from geopy.distance import geodesic
 from tracking.models import Vehicle
 
