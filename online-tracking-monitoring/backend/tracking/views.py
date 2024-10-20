@@ -4,6 +4,34 @@
 from django.http import JsonResponse
 from .models import Vehicle
 
+def get_filtered_vehicles_data(request):
+    # Get filter parameter from request (optional, defaults to all vehicles)
+    status = request.GET.get('status', 'all')
+
+    if status == 'immobilized':
+        vehicles = Vehicle.objects.filter(immobilized=True)
+    elif status == 'active':
+        vehicles = Vehicle.objects.filter(immobilized=False)
+    else:
+        vehicles = Vehicle.objects.all()  # Default: return all vehicles
+
+    vehicle_data = []
+    for vehicle in vehicles:
+        vehicle_data.append({
+            'vehicle_id': vehicle.vehicle_id,
+            'latitude': vehicle.latitude,
+            'longitude': vehicle.longitude,
+            'total_distance_traveled': vehicle.total_distance_traveled,
+            'immobilized': vehicle.immobilized,
+            'speed': vehicle.speed
+        })
+
+    return JsonResponse({'vehicles': vehicle_data})
+
+
+from django.http import JsonResponse
+from .models import Vehicle
+
 def get_all_vehicles_data(request):
     vehicles = Vehicle.objects.all()
     vehicle_data = []
