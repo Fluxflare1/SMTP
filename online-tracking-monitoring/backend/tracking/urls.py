@@ -1,6 +1,18 @@
 
 
 
+
+from django.urls import path
+from .views import get_all_vehicles_data
+
+urlpatterns = [
+    # Other URL patterns...
+    path('get-all-vehicles-data/', get_all_vehicles_data, name='get-all-vehicles-data'),
+]
+
+
+
+
 from django.urls import path
 from .views import update_vehicle_location
 
