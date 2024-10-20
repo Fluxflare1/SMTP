@@ -1,5 +1,11 @@
 
+from django.urls import path
+from .views import get_filtered_vehicles_data
 
+urlpatterns = [
+    # Other URL patterns...
+    path('get-filtered-vehicles-data/', get_filtered_vehicles_data, name='get-filtered-vehicles-data'),
+]
 
 
 from django.urls import path
