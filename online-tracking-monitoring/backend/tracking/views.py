@@ -1,6 +1,26 @@
 
 
 
+
+from django.http import JsonResponse
+from tracking.models import Geofence  # Assuming there is a Geofence model
+
+def create_geofence(request):
+    if request.method == 'POST':
+        data = request.POST
+        geofence = Geofence.objects.create(
+            name=data['name'],
+            latitude=data['latitude'],
+            longitude=data['longitude'],
+            radius=data['radius'],  # Radius of the geofence in meters
+            alert_on_enter=data['alert_on_enter'],  # Boolean for alert on enter
+            alert_on_exit=data['alert_on_exit'],  # Boolean for alert on exit
+        )
+        return JsonResponse({'status': 'Geofence created', 'geofence_id': geofence.id})
+    return JsonResponse({'status': 'Invalid method'}, status=405)
+
+
+
 from django.http import JsonResponse
 from tracking.models import Vehicle  # Assuming Vehicle model stores health data
 
