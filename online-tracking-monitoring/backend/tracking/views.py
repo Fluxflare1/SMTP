@@ -2,6 +2,22 @@
 
 
 from django.http import JsonResponse
+from tracking.models import Vehicle  # Assuming Vehicle model stores health data
+
+def get_vehicle_health(request, vehicle_id):
+    vehicle = Vehicle.objects.get(vehicle_id=vehicle_id)
+    health_data = {
+        'engine_status': vehicle.engine_status,  # Engine on/off
+        'temperature': vehicle.temperature,  # Engine temperature
+        'maintenance_due': vehicle.maintenance_due,  # Maintenance status
+    }
+    return JsonResponse(health_data)
+
+
+
+
+
+from django.http import JsonResponse
 from tracking.models import Vehicle  # Assuming Vehicle model stores fuel data
 
 def get_fuel_consumption(request, vehicle_id):
