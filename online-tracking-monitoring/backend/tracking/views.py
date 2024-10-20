@@ -4,6 +4,22 @@
 
 
 
+
+from django.utils.timezone import now
+from tracking.models import Vehicle
+
+def update_idle_time(vehicle_id):
+    vehicle = Vehicle.objects.get(vehicle_id=vehicle_id)
+    if vehicle.status == 'idle':
+        idle_duration = now() - vehicle.last_active  # Assuming `last_active` stores the last active timestamp
+        vehicle.idle_time += idle_duration.total_seconds()  # Add to total idle time
+        vehicle.last_active = now()  # Reset last active time
+        vehicle.save()
+
+
+
+
+
 from django.http import JsonResponse
 from tracking.models import Vehicle  # Assuming there is a Vehicle model to store vehicle info
 
