@@ -1,3 +1,35 @@
+
+
+import React, { useEffect, useState } from 'react';
+import { getVehicles } from '../api/dispatcherApi';
+
+const VehicleList = () => {
+  const [vehicles, setVehicles] = useState([]);
+
+  useEffect(() => {
+    const fetchVehicles = async () => {
+      const data = await getVehicles();
+      setVehicles(data);
+    };
+    fetchVehicles();
+  }, []);
+
+  return (
+    <div>
+      <h2>Vehicles</h2>
+      <ul>
+        {vehicles.map((vehicle) => (
+          <li key={vehicle.id}>{vehicle.number_plate} - {vehicle.status}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default VehicleList;
+
+
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
