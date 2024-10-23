@@ -1,38 +1,24 @@
 from django.http import JsonResponse
-from rest_framework.views import APIView
-from .models.trip_model import Trip
-from .services.dispatch_service import DispatchService
+from django.views import View
+from .models import Trip, Vehicle, Driver
 
-class TripSchedulingAPI(APIView):
-    
+class ScheduleTripView(View):
     def post(self, request):
-        """
-        Schedule a new trip and assign a driver.
-        """
-        try:
-            trip_data = request.data
-            trip = DispatchService.schedule_trip(trip_data)
-            return JsonResponse({"message": "Trip scheduled successfully", "trip_id": trip.id}, status=201)
-        except Exception as e:
-            return JsonResponse({"error": str(e)}, status=400)
+        vehicle_id = request.POST.get('vehicle_id')
+        driver_id = request.POST.get('driver_id')
+        destination = request.POST.get('destination')
+        pickup = request.POST.get('pickup')
 
-    def put(self, request, trip_id):
-        """
-        Update an existing trip details (e.g. reschedule or reassign driver).
-        """
-        try:
-            trip_data = request.data
-            trip = DispatchService.update_trip(trip_id, trip_data)
-            return JsonResponse({"message": "Trip updated successfully", "trip_id": trip.id}, status=200)
-        except Exception as e:
-            return JsonResponse({"error": str(e)}, status=400)
+        vehicle = Vehicle.objects.get(id=vehicle_id)
+        driver = Driver.objects.get(id=driver_id)
 
-    def get(self, request, trip_id):
-        """
-        Retrieve a specific trip's details.
-        """
-        try:
-            trip = Trip.objects.get(id=trip_id)
-            return JsonResponse({"trip": trip.to_dict()}, status=200)
-        except Trip.DoesNotExist:
-            return JsonResponse({"error": "Trip not found"}, status=404)
+        # Create new trip
+        trip = Trip.objects.create(
+            vehicle=vehicle,
+            driver=driver,
+            destination=destination,
+            pickup=pickup
+        )
+        trip.save()
+
+        return JsonResponse({'status': 'success', 'trip_id': trip.id})
