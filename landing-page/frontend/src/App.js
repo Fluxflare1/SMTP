@@ -1,5 +1,23 @@
 
 
+import React, { useEffect } from 'react';
+import ReactGA from 'react-ga';
+
+ReactGA.initialize('YOUR-GA-TRACKING-ID');
+
+function App() {
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
+
+  return (
+    <div className="App">
+      {/* Components */}
+    </div>
+  );
+}
+
+
 
 // App.js
 import React from 'react';
