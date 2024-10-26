@@ -1,3 +1,23 @@
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .pricing-tiers {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .newsletter-signup form {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  section {
+    padding: 20px 10px;
+  }
+}
+
+
+
 /* global.css */
 :root {
   --primary-blue: #003366;
