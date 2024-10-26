@@ -1,0 +1,17 @@
+/* HeroSection.css */
+.hero-section {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #ffffff;
+  color: #003366;
+}
+
+.hero-section .btn-primary,
+.hero-section .btn-secondary {
+  margin: 10px;
+  padding: 10px 20px;
+  color: #ffffff;
+  background-color: #003366;
+  border: none;
+  cursor: pointer;
+}
