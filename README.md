@@ -1,35 +1,17 @@
-SMTP
-SaaS-Based Multi-Transportation Platform 
+Here's the updated README.md with the repository name aligned to flux-transportation-services:
 
-
-SaaS Multi Transport Platform (SMTP)
-
-Overview
-The **SaaS Multi Transport Platform (SMTP)** is a robust, multi-tenant solution offering both **Global Transportation Services** and **White-Labeling** options for tenants. It enables service providers to manage their transportation services while giving passengers a unified booking platform. SMTP integrates multiple services like ride-hailing, shuttle, logistics, and car rentals, and offers real-time tracking, inspection management, and multi-modal booking.
-
-Key Features
-- **Global Transportation Services**: A unified interface allowing passengers to book transportation services across different providers, globally.
-- **White-Labeling for Tenants**: Tenants can offer their own branded transportation services, with the flexibility to opt-in or out of the global platform.
-- **Multi-Modal Services**: Includes ride-hailing, shuttle, logistics, and car rental services.
-- **Online Tracking & Monitoring**: Real-time tracking integrated with dispatcher and admin panels.
-- **Inspection Agent Portal**: Efficient vehicle inspections with a dedicated inspector dashboard.
-- **Shared Modules**: Authentication, payment processing, compliance management, and more.
 
 ---
 
-## Tech Stack
-- **Backend**: Python (Django)
-- **Frontend**: React.js, HTML, CSS
-- **Database**: PostgreSQL
-- **API Testing & Documentation**: Postman
-- **Containerization**: Docker
-- **Version Control**: Git
+Flux Transportation Services
 
----
+A SaaS-Based Multi-Transportation Services System
 
-## Project Structure
-```bash
-/saas-multi-transport-platform
+Flux Transportation Services is a comprehensive platform for booking and managing multiple transportation services, offering a unified experience for passengers and a white-label solution for tenants. This system is built with modular, microservices-based architecture for flexibility and scalability.
+
+Project Structure
+
+/flux-transportation-services
 │
 ├── /management-system
 │   ├── /CMS-platform-admin
@@ -62,59 +44,57 @@ Key Features
 ├── /docker-compose.yml
 └── /README.md
 
-
+Overview
 
 Global Transportation Services
 
-The Global Transportation Services Module offers passengers a single interface to book services from multiple transportation providers. This module interacts with the Transportation Services Management Hub, Online Tracking and Monitoring System, and Inspection Agent Portal to offer seamless multi-modal service bookings.
+The Global Transportation Services Module offers passengers a single interface to book across multiple providers. This module integrates with the Transportation Services Management Hub, Online Tracking and Monitoring System, and Inspection Agent Portal to facilitate seamless multi-modal service bookings.
 
 Features:
 
-Global Booking: Passengers can search and book rides across various providers.
+Global Booking: Search and book rides across various providers.
 
-Tenant Integration: Tenants can opt-in to the global platform or run independent services.
+Tenant Integration: Tenants may join the global platform or operate independently.
 
-Driver Registration: Independent drivers can sign up directly on the global platform.
+Driver Registration: Independent drivers can sign up on the global platform.
 
-Cross-Service Integration: Leverages the management hub to connect to various service providers.
+Cross-Service Integration: Connects through the management hub to link with various providers.
 
 
 White-Labeling for Tenants
 
-The White-Labeling functionality allows tenants to offer transportation services under their own brand. Tenants can choose multiple services (e.g., ride-hailing, shuttle) and provide a unified interface for customers to book rides. Each tenant gets an independent dashboard to manage services, while also having the option to join the Global Platform for expanded service offerings.
+Tenants can brand and offer their transportation services, with options to join the Global Platform for expanded reach.
 
 Features:
 
-Tenant Customization: Each tenant can fully brand their service offering.
+Tenant Customization: Tenants fully brand their offerings.
 
-Service Selection: Tenants can opt to offer any combination of transportation services.
+Service Selection: Tenants choose from services like ride-hailing, shuttle, logistics, and car rental.
 
-Unified Booking Interface: Customers can book different services through one tenant-branded interface.
-
-Opt-in Global Platform: Tenants can choose to join the global network or remain independent.
+Unified Booking Interface: Customers access all services through a single, branded interface.
 
 
 Installation and Setup
 
 Prerequisites
 
-Ensure that you have the following installed:
+Ensure the following are installed:
 
 Python 3.x
 
 Node.js and npm
 
-Docker (for containerization)
+Docker
 
-PostgreSQL (database)
+PostgreSQL
 
 
 Backend Setup (Python/Django)
 
 1. Clone the repository:
 
-git clone https://github.com/your-repo/saas-multi-transport-platform.git
-cd saas-multi-transport-platform
+git clone https://github.com/your-repo/flux-transportation-services.git
+cd flux-transportation-services
 
 
 2. Navigate to a backend service (e.g., Global Transportation Services):
@@ -122,17 +102,17 @@ cd saas-multi-transport-platform
 cd global-transportation-services/backend
 
 
-3. Install the Python dependencies:
+3. Install dependencies:
 
 pip install -r requirements.txt
 
 
-4. Run the database migrations:
+4. Run migrations:
 
 python manage.py migrate
 
 
-5. Start the backend server:
+5. Start the server:
 
 python manage.py runserver
 
@@ -140,17 +120,17 @@ python manage.py runserver
 
 Frontend Setup (React.js)
 
-1. Navigate to the frontend directory of a service:
+1. Navigate to a frontend directory:
 
 cd global-transportation-services/frontend
 
 
-2. Install the Node dependencies:
+2. Install dependencies:
 
 npm install
 
 
-3. Start the React development server:
+3. Start the development server:
 
 npm start
 
@@ -158,31 +138,29 @@ npm start
 
 Docker Setup
 
-1. From the root of the project, use Docker Compose to build and run the containers:
+1. From the project root, use Docker Compose:
 
 docker-compose up --build
 
 
 
-
 API Documentation
 
-All service APIs are documented using Postman. To access the Postman collection:
+API documentation is available in Postman:
 
 1. Open Postman.
 
 
-2. Import the collection from the /docs folder or via a provided link.
+2. Import the collection from the /docs folder or via the provided link.
 
 
-3. Use the API keys and environment variables as described in the Postman environment setup guide.
-
+3. Configure API keys and environment variables as per the setup guide.
 
 
 
 Running Tests
 
-Unit tests for backend services are located in the /tests directories. Run the tests using:
+For backend services:
 
 python manage.py test
 
@@ -190,26 +168,20 @@ For frontend tests:
 
 npm test
 
-
-
 Contributing
 
-We welcome contributions to the project! Please review the Contributing Guidelines before submitting a pull request.
-
-
+Contributions are welcome! Please review the Contributing Guidelines before submitting a pull request.
 
 License
 
-This project is licensed under the MIT License. See the LICENSE file for more information.
-
-
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 Contact
 
-For more information or to report issues, contact us at support@flux-plus.com.
+For more information or to report issues, contact us at fluxflareltd@gmail.com.
 
 
+---
 
-This `README.md` provides a clear overview of the project, installation steps, and the main features, including Global Transportation Services and White-Labeling for Tenants. It also includes the project structure and detailed setup instructions for developers. Let me know if you need further customization!
-
+Let me know if there are additional details you’d like included!
 
