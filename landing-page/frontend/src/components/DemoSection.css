@@ -1,0 +1,16 @@
+/* DemoSection.css */
+.demo-section {
+  text-align: center;
+  padding: 50px;
+  background-color: #ffffff;
+  color: #003366;
+}
+
+.demo-section .btn-primary {
+  padding: 10px 20px;
+  margin-top: 20px;
+  color: #ffffff;
+  background-color: #003366;
+  border: none;
+  cursor: pointer;
+}
