@@ -214,3 +214,70 @@ Thank you for your interest in Flux Transportation Services!
 
 
 
+
+
+# Flux Transportation Services
+
+A SaaS-Based Multi-Transportation Services System
+
+Flux Transportation Services is a modular, microservices-based platform designed to integrate multiple transportation services into a single, unified system. The platform offers both a passenger interface for booking services and a white-label solution for tenants, emphasizing scalability, flexibility, and seamless multi-modal transportation.
+
+## Table of Contents
+- [Project Structure](#project-structure)
+- [Features](#features)
+  - [Global Transportation Services](#global-transportation-services)
+  - [White-Labeling for Tenants](#white-labeling-for-tenants)
+  - [Landing Page](#landing-page)
+- [Installation and Setup](#installation-and-setup)
+  - [Backend Setup](#backend-setup)
+  - [Frontend Setup](#frontend-setup)
+  - [Docker Setup](#docker-setup)
+- [API Documentation](#api-documentation)
+- [Running Tests](#running-tests)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+## Project Structure
+
+```plaintext
+/flux-transportation-services
+│
+├── /management-system
+│   ├── /CMS-platform-admin
+│   └── /tsp-admin
+│
+├── /global-transportation-services
+│   ├── /backend
+│   └── /frontend
+│
+├── /transportation-services
+│   ├── /management-hub
+│   ├── /ride-hailing-service
+│   ├── /shuttle-service
+│   ├── /logistics-service
+│   └── /car-rental-service
+│
+├── /online-tracking-monitoring-fleet-management-system
+│   ├── /admin-panel
+│   └── /dispatcher-panel
+│
+├── /inspection-agent-portal
+│   ├── /admin-panel
+│   └── /inspector-dashboard
+│
+├── /shared-modules
+│   ├── /authentication
+│   ├── /payment
+│   └── /compliance
+│
+├── /landing-page
+│   ├── /frontend
+│   ├── /assets
+│   ├── /components
+│
+├── docker-compose.yml
+├── .env
+├── README.md
+└── LICENSE
+
