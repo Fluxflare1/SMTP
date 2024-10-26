@@ -1,3 +1,20 @@
+
+// Example: Wrapping the PricingSection with animation
+import { Fade } from 'react-scroll-reveal';
+
+function PricingSection() {
+  return (
+    <Fade>
+      <section className="pricing-section">
+        <h2>Flexible Pricing Plans</h2>
+        ...
+      </section>
+    </Fade>
+  );
+}
+
+
+
 // PricingSection.js
 import React from 'react';
 import './PricingSection.css';
