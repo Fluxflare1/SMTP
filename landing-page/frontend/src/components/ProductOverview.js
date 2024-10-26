@@ -1,3 +1,27 @@
+
+
+
+// ProductOverview.js
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTruck, faMapMarkedAlt, faGasPump } from '@fortawesome/free-solid-svg-icons';
+
+function ProductOverview() {
+  return (
+    <section className="product-overview">
+      <h2>Our Products</h2>
+      <div className="product-item">
+        <FontAwesomeIcon icon={faMapMarkedAlt} /> Online Tracking, Monitoring & Fleet Management
+      </div>
+      <div className="product-item">
+        <FontAwesomeIcon icon={faTruck} /> Global Transportation Services
+      </div>
+      ...
+    </section>
+  );
+}
+
+
+
 // ProductOverview.js
 import React from 'react';
 import './ProductOverview.css';
