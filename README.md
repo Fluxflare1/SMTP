@@ -1,11 +1,11 @@
 
-Flux Transportation Services
+# Flux Transportation Services
 
 A SaaS-Based Multi-Transportation Services System
 
 Flux Transportation Services is a modular, microservices-based platform designed to integrate multiple transportation services into a single, unified system. The platform offers both a passenger interface for booking services and a white-label solution for tenants, emphasizing scalability, flexibility, and seamless multi-modal transportation.
 
-Table of Contents
+## Table of Contents
 - [Project Structure](#project-structure)
 - [Features](#features)
   - [Global Transportation Services](#global-transportation-services)
@@ -21,9 +21,9 @@ Table of Contents
 - [License](#license)
 - [Contact](#contact)
 
-Project Structure
+## Project Structure
 
-
+```plaintext
 /flux-transportation-services
 │
 ├── /management-system
@@ -63,7 +63,6 @@ Project Structure
 ├── .env
 ├── README.md
 └── LICENSE
-
 
 
 Each directory includes its own Dockerfile, dependencies (requirements.txt for Python and package.json for Node.js), and .env for environment variables.
