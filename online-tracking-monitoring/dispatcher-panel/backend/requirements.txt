@@ -1,6 +1,0 @@
-Django==4.2.2
-djangorestframework==3.14.0
-psycopg2-binary==2.9.6  # For PostgreSQL integration
-gunicorn==21.2.0  # For running Django in production
-django-cors-headers==3.14.0
-django-environ==0.10.0  # For managing environment variables
