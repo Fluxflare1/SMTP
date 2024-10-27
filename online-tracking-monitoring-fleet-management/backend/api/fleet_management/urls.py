@@ -1,5 +1,9 @@
 
 
+from .views import MaintenanceRecordViewSet
+
+router.register(r'maintenance', MaintenanceRecordViewSet, basename='maintenance')
+
 
 
 from .views import VehicleViewSet, DriverViewSet, FleetReportView
