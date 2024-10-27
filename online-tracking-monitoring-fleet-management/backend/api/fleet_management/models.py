@@ -1,6 +1,29 @@
 
 
 
+
+from django.db import models
+from django.utils import timezone
+
+class MaintenanceRecord(models.Model):
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name="maintenance_records")
+    description = models.CharField(max_length=255)
+    date_scheduled = models.DateField()
+    date_completed = models.DateField(null=True, blank=True)
+    cost = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    is_completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.vehicle} - {self.description} - Scheduled on {self.date_scheduled}"
+
+    @property
+    def is_overdue(self):
+        return self.date_scheduled < timezone.now().date() and not self.is_completed
+
+
+
+
+
 from django.db import models
 
 class Driver(models.Model):
