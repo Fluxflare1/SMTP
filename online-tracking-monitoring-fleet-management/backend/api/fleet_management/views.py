@@ -1,5 +1,17 @@
 
 
+
+
+@action(detail=True, methods=['get'], url_path='maintenance-history')
+    def maintenance_history(self, request, pk=None):
+        vehicle = self.get_object()
+        maintenance_records = MaintenanceRecord.objects.filter(vehicle=vehicle).order_by('-date')
+        serializer = MaintenanceRecordSerializer(maintenance_records, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 
