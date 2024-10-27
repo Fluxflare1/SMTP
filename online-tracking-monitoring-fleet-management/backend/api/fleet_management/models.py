@@ -1,4 +1,23 @@
 
+
+
+from django.db import models
+
+class Driver(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    license_number = models.CharField(max_length=20, unique=True)
+    license_expiry_date = models.DateField()
+    total_trips_completed = models.PositiveIntegerField(default=0)
+    safety_score = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
+
+
+
+
 from django.db import models
 
 class Vehicle(models.Model):
