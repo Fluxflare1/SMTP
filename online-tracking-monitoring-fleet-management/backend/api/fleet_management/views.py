@@ -1,4 +1,29 @@
 
+
+
+from rest_framework import viewsets, status
+from rest_framework.response import Response
+from .models import Driver
+from .serializers import DriverSerializer
+
+class DriverViewSet(viewsets.ModelViewSet):
+    queryset = Driver.objects.all()
+    serializer_class = DriverSerializer
+
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+    
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)
+
+
+
+
+
+
 from django.db.models import Sum, Avg
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
