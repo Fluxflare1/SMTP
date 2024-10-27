@@ -1,6 +1,20 @@
 
 
 
+
+from rest_framework import serializers
+from .models import Driver
+
+class DriverSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Driver
+        fields = ['id', 'first_name', 'last_name', 'license_number', 'license_expiry_date', 'total_trips_completed', 'safety_score']
+
+
+
+
+
+
 class MaintenanceRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = MaintenanceRecord
