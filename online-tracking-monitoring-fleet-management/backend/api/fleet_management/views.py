@@ -1,6 +1,24 @@
 
 
 
+
+
+from .models import MaintenanceRecord
+from .serializers import MaintenanceRecordSerializer
+
+class MaintenanceRecordViewSet(viewsets.ModelViewSet):
+    queryset = MaintenanceRecord.objects.all()
+    serializer_class = MaintenanceRecordSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+    def perform_update(self, serializer):
+        serializer.save()
+
+
+
+
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from .models import Driver
