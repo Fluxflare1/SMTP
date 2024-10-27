@@ -1,5 +1,20 @@
 
 
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
+
+class VehicleViewSet(viewsets.ModelViewSet):
+    queryset = Vehicle.objects.all()
+    serializer_class = VehicleSerializer
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
+    filterset_fields = ['type', 'operational_status', 'last_service_date']
+    search_fields = ['make', 'model', 'license_plate']
+    ordering_fields = ['year', 'mileage', 'last_service_date']
+
+
+
+
 @action(detail=True, methods=['patch'], url_path='schedule-maintenance')
     def schedule_maintenance(self, request, pk=None):
         vehicle = self.get_object()
