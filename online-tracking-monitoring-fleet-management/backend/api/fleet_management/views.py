@@ -1,4 +1,36 @@
 
+from django.db.models import Sum, Avg
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
+class FleetReportView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Optional filters
+        start_date = request.query_params.get('start_date')
+        end_date = request.query_params.get('end_date')
+        
+        vehicles = Vehicle.objects.all()
+
+        if start_date and end_date:
+            vehicles = vehicles.filter(last_service_date__range=[start_date, end_date])
+
+        total_mileage = vehicles.aggregate(Sum('mileage'))['mileage__sum'] or 0
+        total_maintenance_cost = MaintenanceRecord.objects.filter(
+            vehicle__in=vehicles
+        ).aggregate(Sum('cost'))['cost__sum'] or 0
+        average_mileage = vehicles.aggregate(Avg('mileage'))['mileage__avg'] or 0
+
+        data = {
+            'total_vehicles': vehicles.count(),
+            'total_mileage': total_mileage,
+            'total_maintenance_cost': total_maintenance_cost,
+            'average_mileage': average_mileage,
+        }
+        return Response(data, status=status.HTTP_200_OK)
+
 
 
 
