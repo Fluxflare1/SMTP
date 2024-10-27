@@ -1,3 +1,14 @@
+
+
+
+class MaintenanceRecordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MaintenanceRecord
+        fields = ['id', 'date', 'description', 'cost']
+
+
+
+
 from rest_framework import serializers
 from .models import Vehicle, MaintenanceRecord
 
