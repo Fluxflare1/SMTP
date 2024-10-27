@@ -2,6 +2,16 @@
 
 
 
+from .models import MaintenanceRecord
+
+class MaintenanceRecordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MaintenanceRecord
+        fields = ['id', 'vehicle', 'description', 'date_scheduled', 'date_completed', 'cost', 'is_completed', 'is_overdue']
+
+
+
+
 from rest_framework import serializers
 from .models import Driver
 
