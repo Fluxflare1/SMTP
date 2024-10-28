@@ -1,6 +1,16 @@
 
 
 from celery import shared_task
+from .tasks import overdue_maintenance_alert
+
+@shared_task
+def check_overdue_maintenance():
+    overdue_maintenance_alert()
+
+
+
+
+from celery import shared_task
 from .tasks import upcoming_maintenance_alert
 
 @shared_task
