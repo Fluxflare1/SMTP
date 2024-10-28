@@ -1,6 +1,20 @@
 
 
 
+
+
+from django.db import models
+
+class FuelUsage(models.Model):
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    fuel_level = models.DecimalField(max_digits=5, decimal_places=2)  # in liters or percentage
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-timestamp']
+
+
+
 from django.db import models
 
 class DriverBehaviorEvent(models.Model):
