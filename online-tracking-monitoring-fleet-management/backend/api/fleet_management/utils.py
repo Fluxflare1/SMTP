@@ -1,5 +1,30 @@
 
 
+# Path: backend/api/fleet_management/utils.py
+
+from io import BytesIO
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from .models import Invoice
+
+def generate_invoice_pdf(invoice: Invoice) -> BytesIO:
+    buffer = BytesIO()
+    pdf = canvas.Canvas(buffer, pagesize=letter)
+    pdf.drawString(100, 750, f"Invoice #{invoice.id}")
+    pdf.drawString(100, 730, f"Client: {invoice.client.username}")
+    pdf.drawString(100, 710, f"Issued Date: {invoice.issued_date}")
+    pdf.drawString(100, 690, f"Due Date: {invoice.due_date}")
+    pdf.drawString(100, 670, f"Amount: ${invoice.amount}")
+    pdf.drawString(100, 650, f"Status: {invoice.status}")
+    pdf.drawString(100, 630, f"Description: {invoice.description}")
+    pdf.showPage()
+    pdf.save()
+    buffer.seek(0)
+    return buffer
+
+
+
+
 
 
 from django.urls import path
