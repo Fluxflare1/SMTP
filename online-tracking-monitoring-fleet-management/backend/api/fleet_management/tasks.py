@@ -1,5 +1,39 @@
 
 
+from geopy.distance import geodesic
+from .models import Geofence, VehicleLocation
+from notifications.models import Notification
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+def geofence_alert():
+    geofences = Geofence.objects.all()
+    recent_vehicle_locations = VehicleLocation.objects.order_by('-timestamp')[:100]  # Limit to recent locations
+    
+    for location in recent_vehicle_locations:
+        for geofence in geofences:
+            vehicle_position = (location.latitude, location.longitude)
+            geofence_position = (geofence.latitude, geofence.longitude)
+            distance = geodesic(vehicle_position, geofence_position).meters
+            
+            if distance <= geofence.radius:
+                message = f"Vehicle {location.vehicle.license_plate} has entered the geofence area '{geofence.name}'."
+            else:
+                message = f"Vehicle {location.vehicle.license_plate} has exited the geofence area '{geofence.name}'."
+                
+            fleet_managers = User.objects.filter(role='fleet_manager')
+            for manager in fleet_managers:
+                Notification.objects.create(
+                    user=manager,
+                    message=message
+                )
+
+
+
+
+
+
 from .models import Vehicle, VehicleHealthMetrics
 from notifications.models import Notification
 from django.contrib.auth import get_user_model
