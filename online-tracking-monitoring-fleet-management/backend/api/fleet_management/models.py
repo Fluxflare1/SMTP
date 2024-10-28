@@ -1,5 +1,21 @@
 
 
+from django.db import models
+from django.contrib.auth import get_user_model
+from datetime import timedelta
+
+User = get_user_model()
+
+class DriverDocumentation(models.Model):
+    driver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='documents')
+    document_type = models.CharField(max_length=100)  # e.g., License, Medical Certificate
+    expiration_date = models.DateField()
+
+    def is_expiring_soon(self):
+        return self.expiration_date <= timezone.now().date() + timedelta(days=30)  # 30-day threshold
+
+
+
 
 
 
