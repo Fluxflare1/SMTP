@@ -1,6 +1,16 @@
 
 
 
+from celery import shared_task
+from .tasks import driver_behavior_alert
+
+@shared_task
+def check_driver_behavior():
+    driver_behavior_alert()
+
+
+
+
 
 from celery import shared_task
 from .tasks import geofence_alert
