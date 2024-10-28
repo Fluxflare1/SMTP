@@ -1,6 +1,25 @@
 
 
 
+from rest_framework import serializers
+from .models import Trip, FleetIncomeReport
+
+class TripSerializer(serializers.ModelSerializer):
+    total_expense = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
+    profitability = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
+
+    class Meta:
+        model = Trip
+        fields = ['id', 'distance_traveled', 'fuel_cost', 'tolls_cost', 'driver_pay', 'income_generated', 'total_expense', 'profitability']
+
+
+class FleetIncomeReportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FleetIncomeReport
+        fields = ['date', 'total_income', 'total_expenses', 'net_profit']
+
+
+
 
 from rest_framework import serializers
 from .models import VehiclePerformance, VehicleUsage
