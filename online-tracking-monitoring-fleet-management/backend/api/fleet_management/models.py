@@ -3,6 +3,28 @@
 
 
 
+from django.db import models
+from django.utils import timezone
+
+class Invoice(models.Model):
+    ...
+    is_recurring = models.BooleanField(default=False)
+    recurrence_frequency = models.CharField(
+        max_length=20,
+        choices=[("weekly", "Weekly"), ("monthly", "Monthly"), ("yearly", "Yearly")],
+        blank=True,
+        null=True
+    )
+    next_recurrence_date = models.DateField(blank=True, null=True)
+
+    def schedule_next_recurrence(self):
+        # Logic to calculate and update `next_recurrence_date` based on frequency
+        pass
+
+
+
+
+
 
 # Path: backend/api/fleet_management/models.py
 
