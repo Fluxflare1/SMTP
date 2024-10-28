@@ -1,6 +1,16 @@
 
 
 from celery import shared_task
+from .tasks import vehicle_health_alert
+
+@shared_task
+def check_vehicle_health():
+    vehicle_health_alert()
+
+
+
+
+from celery import shared_task
 from .tasks import overdue_maintenance_alert
 
 @shared_task
