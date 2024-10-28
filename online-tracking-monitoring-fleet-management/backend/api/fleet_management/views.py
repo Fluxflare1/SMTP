@@ -3,6 +3,22 @@
 
 
 from rest_framework import viewsets
+from .models import TripIncome, FleetExpense
+from .serializers import TripIncomeSerializer, FleetExpenseSerializer
+
+class TripIncomeViewSet(viewsets.ModelViewSet):
+    queryset = TripIncome.objects.all()
+    serializer_class = TripIncomeSerializer
+
+class FleetExpenseViewSet(viewsets.ModelViewSet):
+    queryset = FleetExpense.objects.all()
+    serializer_class = FleetExpenseSerializer
+
+
+
+
+
+from rest_framework import viewsets
 from rest_framework.response import Response
 from .models import Trip
 from .serializers import TripExpenseSerializer
