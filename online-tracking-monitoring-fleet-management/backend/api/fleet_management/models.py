@@ -1,5 +1,19 @@
 
 
+from django.db import models
+
+class Geofence(models.Model):
+    name = models.CharField(max_length=100)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    radius = models.FloatField()  # Radius in meters
+
+class VehicleLocation(models.Model):
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
 
 
 from django.db import models
