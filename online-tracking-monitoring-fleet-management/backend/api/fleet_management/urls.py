@@ -1,5 +1,22 @@
 
 
+
+
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import TripExpenseViewSet
+
+router = DefaultRouter()
+router.register(r'trip-expenses', TripExpenseViewSet, basename='trip-expenses')
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
+
+
+
+
+
 from .views import MaintenanceRecordViewSet
 
 router.register(r'maintenance', MaintenanceRecordViewSet, basename='maintenance')
