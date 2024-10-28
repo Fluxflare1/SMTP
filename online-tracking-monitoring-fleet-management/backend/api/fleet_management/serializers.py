@@ -1,6 +1,30 @@
 
 
 
+from .models import Driver, DriverCredential
+from django.contrib.auth.models import User
+from rest_framework import serializers
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'first_name', 'last_name', 'email']
+
+class DriverCredentialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DriverCredential
+        fields = '__all__'
+
+class DriverSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    credentials = DriverCredentialSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Driver
+        fields = ['id', 'user', 'license_number', 'phone', 'address', 'credentials']
+
+
+
 
 from .models import Client, Invoice
 
