@@ -1,5 +1,21 @@
 
 
+
+
+from .views import DriverViewSet, DriverCredentialViewSet
+
+router.register(r'drivers', DriverViewSet)
+router.register(r'driver-credentials', DriverCredentialViewSet)
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
+
+
+
+
+
+
 from .views import ClientViewSet, InvoiceViewSet
 
 router.register(r'clients', ClientViewSet)
