@@ -1,4 +1,35 @@
+from .models import FuelUsage
+from notifications.models import Notification
+from django.contrib.auth import get_user_model
+from django.utils import timezone
+from datetime import timedelta
 
+User = get_user_model()
+
+def fuel_usage_alert():
+    vehicles = Vehicle.objects.all()
+    for vehicle in vehicles:
+        recent_fuel_data = FuelUsage.objects.filter(vehicle=vehicle, timestamp__gte=timezone.now() - timedelta(hours=1)).order_by('timestamp')
+        
+        if recent_fuel_data.count() > 1:
+            # Calculate fuel consumption
+            first = recent_fuel_data.first().fuel_level
+            last = recent_fuel_data.last().fuel_level
+            fuel_drop = first - last
+            
+            # Define thresholds
+            excessive_drop_threshold = 5.0  # Customize this value as needed
+            
+            if fuel_drop > excessive_drop_threshold:
+                message = f"Alert: Vehicle {vehicle.license_plate} shows an unusual fuel drop of {fuel_drop} liters within the last hour."
+                
+                # Send alert to fleet managers
+                fleet_managers = User.objects.filter(role='fleet_manager')
+                for manager in fleet_managers:
+                    Notification.objects.create(
+                        user=manager,
+                        message=message
+                    )
 
 
 
