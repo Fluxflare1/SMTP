@@ -1,3 +1,17 @@
+
+
+from celery.schedules import crontab
+
+CELERY_BEAT_SCHEDULE = {
+    'check-overdue-maintenance': {
+        'task': 'fleet_management.tasks.check_overdue_maintenance',
+        'schedule': crontab(hour=0, minute=0),  # Daily at midnight
+    },
+}
+
+
+
+
 from celery.schedules import crontab
 
 CELERY_BEAT_SCHEDULE = {
