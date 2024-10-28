@@ -1,5 +1,33 @@
 
 
+
+
+from .models import DriverBehaviorEvent
+from notifications.models import Notification
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+def driver_behavior_alert():
+    unsafe_events = DriverBehaviorEvent.objects.filter(timestamp__gte=timezone.now() - timedelta(minutes=5))
+    
+    for event in unsafe_events:
+        if event.event_type == "Speeding":
+            message = f"Alert: Vehicle {event.vehicle.license_plate} driven by {event.driver.name} exceeded the speed limit."
+        elif event.event_type == "Harsh Braking":
+            message = f"Alert: Vehicle {event.vehicle.license_plate} experienced harsh braking."
+        # Add additional behavior alerts as needed
+        
+        fleet_managers = User.objects.filter(role='fleet_manager')
+        for manager in fleet_managers:
+            Notification.objects.create(
+                user=manager,
+                message=message
+            )
+
+
+
+
 from geopy.distance import geodesic
 from .models import Geofence, VehicleLocation
 from notifications.models import Notification
