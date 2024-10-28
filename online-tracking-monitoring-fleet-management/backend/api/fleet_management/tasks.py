@@ -1,5 +1,16 @@
 
 
+from celery import shared_task
+from .models import Trip
+from .notifications import send_expense_alert
+
+@shared_task
+def check_trip_expenses():
+    trips = Trip.objects.filter(total_expense__gt=F('expense_threshold'))
+    for trip in trips:
+        send_expense_alert(trip)
+
+
 
 from .models import DriverDocumentation
 from notifications.models import Notification
