@@ -1,3 +1,23 @@
+
+
+
+
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import VehiclePerformanceViewSet, VehicleUsageViewSet
+
+router = DefaultRouter()
+router.register(r'vehicle-performance', VehiclePerformanceViewSet, basename='vehicle-performance')
+router.register(r'vehicle-usage', VehicleUsageViewSet, basename='vehicle-usage')
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
+
+
+
+
+
 from django.core.mail import send_mail
 from django.conf import settings
 
