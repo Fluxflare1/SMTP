@@ -1,3 +1,23 @@
+from django.utils import timezone
+from .models import MaintenanceTask
+from notifications.models import Notification  # Assuming there's a central Notification model
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+def overdue_maintenance_alert():
+    # Retrieve overdue maintenance tasks
+    overdue_tasks = MaintenanceTask.objects.filter(date_scheduled__lt=timezone.now(), status='Pending')
+    
+    for task in overdue_tasks:
+        vehicle = task.vehicle
+        fleet_manager = User.objects.filter(role='fleet_manager')  # Assuming fleet managers have this role
+
+        for manager in fleet_manager:
+            Notification.objects.create(
+                user=manager,
+                message=f"Overdue maintenance for Vehicle {vehicle.license_plate} was scheduled on {task.date_scheduled} and is pending."
+            )
 
 
 
