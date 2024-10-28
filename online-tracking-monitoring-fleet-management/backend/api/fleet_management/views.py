@@ -3,6 +3,36 @@
 
 
 
+
+from rest_framework import viewsets
+from .models import Driver, DriverCredential
+from .serializers import DriverSerializer, DriverCredentialSerializer
+from rest_framework.response import Response
+from rest_framework import status
+
+class DriverViewSet(viewsets.ModelViewSet):
+    queryset = Driver.objects.all()
+    serializer_class = DriverSerializer
+
+    def create(self, request, *args, **kwargs):
+        user_data = request.data.get('user')
+        user = User.objects.create(**user_data)
+        driver = Driver.objects.create(
+            user=user,
+            license_number=request.data.get('license_number'),
+            phone=request.data.get('phone'),
+            address=request.data.get('address')
+        )
+        serializer = self.get_serializer(driver)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+class DriverCredentialViewSet(viewsets.ModelViewSet):
+    queryset = DriverCredential.objects.all()
+    serializer_class = DriverCredentialSerializer
+
+
+
+
 from rest_framework import viewsets
 from .models import Client, Invoice, TripIncome, FleetExpense
 from .serializers import ClientSerializer, InvoiceSerializer
