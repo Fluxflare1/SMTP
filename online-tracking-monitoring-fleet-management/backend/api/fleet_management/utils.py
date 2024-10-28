@@ -1,5 +1,27 @@
 
 
+
+
+
+# Path: backend/api/fleet_management/utils.py
+
+from django.core.mail import EmailMessage
+
+def send_invoice_email(invoice: Invoice, pdf_buffer: BytesIO):
+    email = EmailMessage(
+        subject=f"Invoice #{invoice.id} - {invoice.client.username}",
+        body=f"Dear {invoice.client.username},\n\nPlease find attached your invoice.",
+        to=[invoice.client.email],
+    )
+    email.attach(f"invoice_{invoice.id}.pdf", pdf_buffer.getvalue(), "application/pdf")
+    email.send()
+
+
+
+
+
+
+
 # Path: backend/api/fleet_management/utils.py
 
 from io import BytesIO
