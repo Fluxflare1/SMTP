@@ -1,5 +1,20 @@
 
 
+# Path: backend/api/fleet_management/urls.py
+
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import InvoiceViewSet
+
+router = DefaultRouter()
+router.register(r'invoices', InvoiceViewSet)
+
+urlpatterns = [
+    path('', include(router.urls)),
+    path('invoices/<int:pk>/send_pdf/', InvoiceViewSet.as_view({'post': 'send_pdf'}), name='send_invoice_pdf'),
+]
+
+
 
 
 # Path: backend/api/fleet_management/urls.py
