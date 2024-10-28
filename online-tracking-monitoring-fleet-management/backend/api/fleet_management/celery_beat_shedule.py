@@ -1,5 +1,19 @@
 
 
+
+from celery.schedules import crontab
+
+CELERY_BEAT_SCHEDULE = {
+    'check-geofence-status': {
+        'task': 'fleet_management.tasks.check_geofence_status',
+        'schedule': crontab(minute='*/5'),  # Every 5 minutes
+    },
+}
+
+
+
+
+
 from celery.schedules import crontab
 
 CELERY_BEAT_SCHEDULE = {
