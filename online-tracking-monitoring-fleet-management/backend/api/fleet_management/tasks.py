@@ -1,4 +1,11 @@
+from celery import shared_task
+from .models import Invoice
 
+@shared_task
+def check_overdue_invoices():
+    invoices = Invoice.objects.filter(status="pending", due_date__lt=timezone.now().date())
+    for invoice in invoices:
+        invoice.check_overdue_status()
 
 
 
