@@ -1,3 +1,28 @@
+
+
+
+from .models import DriverDocumentation
+from notifications.models import Notification
+from django.utils import timezone
+from datetime import timedelta
+
+def check_document_expirations():
+    expiring_soon_docs = DriverDocumentation.objects.filter(
+        expiration_date__lte=timezone.now().date() + timedelta(days=30)
+    )
+    for doc in expiring_soon_docs:
+        message = f"Alert: {doc.document_type} for driver {doc.driver.username} is expiring on {doc.expiration_date}."
+        
+        # Notify fleet managers
+        fleet_managers = User.objects.filter(role='fleet_manager')
+        for manager in fleet_managers:
+            Notification.objects.create(
+                user=manager,
+                message=message
+            )
+
+
+
 from .models import FuelUsage
 from notifications.models import Notification
 from django.contrib.auth import get_user_model
