@@ -2,6 +2,15 @@
 
 
 from celery import shared_task
+from .tasks import fuel_usage_alert
+
+@shared_task
+def check_fuel_usage():
+    fuel_usage_alert()
+
+
+
+from celery import shared_task
 from .tasks import driver_behavior_alert
 
 @shared_task
