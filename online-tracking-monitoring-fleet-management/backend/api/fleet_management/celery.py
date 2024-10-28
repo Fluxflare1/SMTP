@@ -1,5 +1,12 @@
 
+from celery.schedules import crontab
 
+app.conf.beat_schedule.update({
+    "notify-expiring-licenses-daily": {
+        "task": "fleet_management.tasks.notify_expiring_licenses",
+        "schedule": crontab(minute=0, hour=2),  # Runs daily at 2 AM
+    },
+})
 
 
 
