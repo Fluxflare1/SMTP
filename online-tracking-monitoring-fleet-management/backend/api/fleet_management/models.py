@@ -2,6 +2,26 @@
 
 
 
+
+from django.db import models
+from django.contrib.auth.models import User
+
+class Driver(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    license_number = models.CharField(max_length=50, unique=True)
+    phone = models.CharField(max_length=20)
+    address = models.TextField()
+
+class DriverCredential(models.Model):
+    driver = models.ForeignKey(Driver, on_delete=models.CASCADE, related_name='credentials')
+    credential_type = models.CharField(max_length=50)  # e.g., "License", "Certification"
+    issue_date = models.DateField()
+    expiration_date = models.DateField()
+    is_active = models.BooleanField(default=True)
+
+
+
+
 from django.db import models
 
 class Client(models.Model):
