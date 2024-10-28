@@ -3,6 +3,28 @@
 
 
 
+from rest_framework import generics, views
+from rest_framework.response import Response
+from .models import Trip, FleetIncomeReport
+from .serializers import TripSerializer, FleetIncomeReportSerializer
+
+class TripListView(generics.ListCreateAPIView):
+    queryset = Trip.objects.all()
+    serializer_class = TripSerializer
+
+
+class FleetIncomeReportView(views.APIView):
+    def get(self, request, *args, **kwargs):
+        report, created = FleetIncomeReport.objects.get_or_create(date=kwargs['date'])
+        if created:
+            report.calculate_totals()
+        serializer = FleetIncomeReportSerializer(report)
+        return Response(serializer.data)
+
+
+
+
+
 from rest_framework import viewsets
 from .models import VehiclePerformance, VehicleUsage
 from .serializers import VehiclePerformanceSerializer, VehicleUsageSerializer
