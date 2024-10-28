@@ -3,6 +3,40 @@
 
 
 
+
+
+from django.db import models
+from .vehicle import Vehicle
+
+class VehiclePerformance(models.Model):
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name="performance")
+    date_recorded = models.DateField(auto_now_add=True)
+    mileage = models.FloatField()  # in kilometers
+    fuel_efficiency = models.FloatField()  # km per liter
+    issues_reported = models.TextField(blank=True, null=True)
+
+    class Meta:
+        ordering = ["-date_recorded"]
+
+    def __str__(self):
+        return f"{self.vehicle} Performance on {self.date_recorded}"
+
+class VehicleUsage(models.Model):
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name="usage")
+    date = models.DateField(auto_now_add=True)
+    trip_count = models.IntegerField(default=0)
+    total_distance = models.FloatField()  # total distance in kilometers
+
+    class Meta:
+        ordering = ["-date"]
+
+    def __str__(self):
+        return f"{self.vehicle} Usage on {self.date}"
+
+
+
+
+
 from django.db import models
 from django.contrib.auth.models import User
 
