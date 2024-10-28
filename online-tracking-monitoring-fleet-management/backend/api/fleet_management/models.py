@@ -1,5 +1,36 @@
 
 
+from django.db import models
+
+class Trip(models.Model):
+    # Existing fields...
+    distance_traveled = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    fuel_cost = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    tolls_cost = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    driver_pay = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    income_generated = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    
+    @property
+    def total_expense(self):
+        return (self.fuel_cost or 0) + (self.tolls_cost or 0) + (self.driver_pay or 0)
+    
+    @property
+    def profitability(self):
+        return (self.income_generated or 0) - self.total_expense
+
+
+class FleetIncomeReport(models.Model):
+    date = models.DateField(auto_now_add=True)
+    total_income = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    total_expenses = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    net_profit = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+
+    def calculate_totals(self):
+        trips = Trip.objects.filter(created_at__date=self.date)
+        self.total_income = sum(trip.income_generated or 0 for trip in trips)
+        self.total_expenses = sum(trip.total_expense for trip in trips)
+        self.net_profit = self.total_income - self.total_expenses
+        self.save()
 
 
 
