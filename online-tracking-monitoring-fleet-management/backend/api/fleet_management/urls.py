@@ -1,5 +1,20 @@
 
 
+
+
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views.driver_profiles import DriverProfileViewSet
+
+router = DefaultRouter()
+router.register(r'drivers', DriverProfileViewSet)
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
+
+
+
 # Path: backend/api/fleet_management/urls.py
 
 from django.urls import path, include
