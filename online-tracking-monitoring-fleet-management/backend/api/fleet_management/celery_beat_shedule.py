@@ -1,4 +1,11 @@
+from celery.schedules import crontab
 
+CELERY_BEAT_SCHEDULE = {
+    'check-driver-document-expirations': {
+        'task': 'fleet_management.tasks.check_driver_document_expirations',
+        'schedule': crontab(minute=0, hour=0),  # Runs daily at midnight
+    },
+}
 
 
 
