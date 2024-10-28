@@ -2,6 +2,11 @@
 
 
 
+def calculate_total_expense(self):
+    # Add up fuel, tolls, driver pay, etc.
+    return self.fuel_cost + self.toll_cost + self.driver_pay
+
+
 
 from django.db import models
 from .vehicle import Vehicle
