@@ -1,5 +1,27 @@
 
 
+
+from celery import shared_task
+from django.utils import timezone
+from datetime import timedelta
+from .models import DriverCredential
+from .utils import send_email_reminder  # Utility for sending email notifications
+
+@shared_task
+def check_driver_credentials_expiration():
+    upcoming_expiration_date = timezone.now() + timedelta(days=30)
+    expiring_credentials = DriverCredential.objects.filter(
+        expiration_date__lte=upcoming_expiration_date,
+        is_active=True
+    )
+    for credential in expiring_credentials:
+        send_email_reminder(credential)
+
+
+
+
+
+
 from celery import shared_task
 from .models import Trip
 from .notifications import send_expense_alert
