@@ -2,6 +2,18 @@
 
 
 
+from django.urls import path
+from .views import TripListView, FleetIncomeReportView
+
+urlpatterns = [
+    path('trips/', TripListView.as_view(), name='trip-list'),
+    path('income-report/<str:date>/', FleetIncomeReportView.as_view(), name='fleet-income-report'),
+]
+
+
+
+
+
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import VehiclePerformanceViewSet, VehicleUsageViewSet
