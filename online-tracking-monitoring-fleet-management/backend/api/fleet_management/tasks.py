@@ -1,3 +1,31 @@
+
+
+from .models import Vehicle, VehicleHealthMetrics
+from notifications.models import Notification
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+def vehicle_health_alert():
+    # Retrieve vehicles with critical health metrics
+    critical_health_vehicles = VehicleHealthMetrics.objects.filter(
+        engine_temperature__gt=95,  # Example threshold for high engine temperature
+        battery_level__lt=20  # Example threshold for low battery
+    )
+    
+    for health_metrics in critical_health_vehicles:
+        vehicle = health_metrics.vehicle
+        fleet_managers = User.objects.filter(role='fleet_manager')
+
+        for manager in fleet_managers:
+            Notification.objects.create(
+                user=manager,
+                message=f"Critical health alert for Vehicle {vehicle.license_plate}: Engine Temp {health_metrics.engine_temperature}°C, Battery {health_metrics.battery_level}%."
+            )
+
+
+
+
 from django.utils import timezone
 from .models import MaintenanceTask
 from notifications.models import Notification  # Assuming there's a central Notification model
