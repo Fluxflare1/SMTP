@@ -1,5 +1,25 @@
 
 
+from rest_framework import serializers
+from .models import Trip
+
+class TripExpenseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trip
+        fields = ['id', 'vehicle', 'driver', 'start_location', 'end_location', 'expense_threshold', 'total_expense']
+
+    def validate(self, data):
+        if data['total_expense'] > data['expense_threshold']:
+            # Trigger alert for expense threshold exceeded
+            self.create_expense_alert(data)
+        return data
+
+    def create_expense_alert(self, trip_data):
+        # Placeholder logic to create and send expense alert
+        pass
+
+
+
 
 
 from .models import MaintenanceRecord
