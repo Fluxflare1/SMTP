@@ -1,6 +1,19 @@
 
 
 
+
+from celery.schedules import crontab
+
+CELERY_BEAT_SCHEDULE = {
+    'check-driver-behavior': {
+        'task': 'fleet_management.tasks.check_driver_behavior',
+        'schedule': crontab(minute='*/5'),  # Every 5 minutes
+    },
+}
+
+
+
+
 from celery.schedules import crontab
 
 CELERY_BEAT_SCHEDULE = {
