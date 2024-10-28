@@ -2,6 +2,20 @@
 
 
 
+
+
+from celery.schedules import crontab
+
+app.conf.beat_schedule.update({
+    "generate-recurring-invoices-daily": {
+        "task": "fleet_management.tasks.generate_recurring_invoices",
+        "schedule": crontab(minute=0, hour=0),  # Runs daily at midnight
+    },
+})
+
+
+
+
 from celery.schedules import crontab
 from .tasks import app
 
