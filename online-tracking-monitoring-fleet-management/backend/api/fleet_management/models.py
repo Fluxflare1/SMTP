@@ -1,5 +1,18 @@
 
+from django.db import models
+from django.utils import timezone
 
+class DriverProfile(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    license_number = models.CharField(max_length=100, unique=True)
+    license_expiration_date = models.DateField()
+    phone_number = models.CharField(max_length=20, blank=True)
+    email = models.EmailField(blank=True)
+    address = models.TextField(blank=True)
+
+    def is_license_expired(self):
+        return timezone.now().date() > self.license_expiration_date
 
 
 
