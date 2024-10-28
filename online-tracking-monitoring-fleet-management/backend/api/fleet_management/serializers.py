@@ -1,6 +1,22 @@
 
 
 from rest_framework import serializers
+from .models import TripIncome, FleetExpense
+
+class TripIncomeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TripIncome
+        fields = '__all__'
+
+class FleetExpenseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FleetExpense
+        fields = '__all__'
+
+
+
+
+from rest_framework import serializers
 from .models import Trip
 
 class TripExpenseSerializer(serializers.ModelSerializer):
