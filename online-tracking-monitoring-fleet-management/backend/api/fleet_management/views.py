@@ -2,6 +2,44 @@
 
 
 
+
+from rest_framework import viewsets
+from .models import Client, Invoice, TripIncome, FleetExpense
+from .serializers import ClientSerializer, InvoiceSerializer
+from rest_framework.response import Response
+from rest_framework import status
+
+class ClientViewSet(viewsets.ModelViewSet):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+
+class InvoiceViewSet(viewsets.ModelViewSet):
+    queryset = Invoice.objects.all()
+    serializer_class = InvoiceSerializer
+
+    def create(self, request, *args, **kwargs):
+        # Logic to calculate total income, expenses, and profit for invoicing
+        client = Client.objects.get(id=request.data.get('client_id'))
+        income = TripIncome.objects.filter(trip__client=client).aggregate(total=models.Sum('income'))['total'] or 0
+        expenses = FleetExpense.objects.filter(trip__client=client).aggregate(total=models.Sum('amount'))['total'] or 0
+        profit = income - expenses
+        
+        invoice = Invoice.objects.create(
+            client=client,
+            total_income=income,
+            total_expense=expenses,
+            total_profit=profit,
+            due_date=request.data.get('due_date')
+        )
+        serializer = self.get_serializer(invoice)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+
+
+
+
+
 from rest_framework import viewsets
 from .models import TripIncome, FleetExpense
 from .serializers import TripIncomeSerializer, FleetExpenseSerializer
