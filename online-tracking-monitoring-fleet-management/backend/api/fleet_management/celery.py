@@ -1,5 +1,14 @@
 
 
+from celery import shared_task
+from .tasks import check_document_expirations
+
+@shared_task
+def check_driver_document_expirations():
+    check_document_expirations()
+
+
+
 
 from celery import shared_task
 from .tasks import fuel_usage_alert
