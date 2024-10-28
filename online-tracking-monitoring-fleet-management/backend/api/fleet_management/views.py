@@ -3,6 +3,21 @@
 
 
 
+from rest_framework import viewsets
+from .models import VehiclePerformance, VehicleUsage
+from .serializers import VehiclePerformanceSerializer, VehicleUsageSerializer
+
+class VehiclePerformanceViewSet(viewsets.ModelViewSet):
+    queryset = VehiclePerformance.objects.all()
+    serializer_class = VehiclePerformanceSerializer
+
+class VehicleUsageViewSet(viewsets.ModelViewSet):
+    queryset = VehicleUsage.objects.all()
+    serializer_class = VehicleUsageSerializer
+
+
+
+
 
 from rest_framework import viewsets
 from .models import Driver, DriverCredential
