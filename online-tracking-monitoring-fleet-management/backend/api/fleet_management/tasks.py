@@ -1,6 +1,23 @@
 
 
 
+
+
+from celery import shared_task
+from .models import Invoice
+
+@shared_task
+def generate_recurring_invoices():
+    invoices = Invoice.objects.filter(is_recurring=True, next_recurrence_date__lte=timezone.now())
+    for invoice in invoices:
+        # Logic to clone the invoice and set the next recurrence date
+        invoice.schedule_next_recurrence()
+        invoice.save()
+
+
+
+
+
 from celery import shared_task
 from django.utils import timezone
 from datetime import timedelta
