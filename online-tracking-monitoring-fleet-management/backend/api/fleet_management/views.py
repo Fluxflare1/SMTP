@@ -2,6 +2,28 @@
 
 
 
+from rest_framework import viewsets
+from rest_framework.response import Response
+from .models import Trip
+from .serializers import TripExpenseSerializer
+
+class TripExpenseViewSet(viewsets.ModelViewSet):
+    queryset = Trip.objects.all()
+    serializer_class = TripExpenseSerializer
+    
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        if instance.total_expense > instance.expense_threshold:
+            # Trigger alert logic here
+            self.send_expense_alert(instance)
+
+    def send_expense_alert(self, trip):
+        # Placeholder function for sending an alert to fleet managers
+        pass
+
+
+
+
 
 from .models import MaintenanceRecord
 from .serializers import MaintenanceRecordSerializer
