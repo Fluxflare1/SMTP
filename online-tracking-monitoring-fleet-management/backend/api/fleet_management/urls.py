@@ -1,4 +1,14 @@
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import TripIncomeViewSet, FleetExpenseViewSet
 
+router = DefaultRouter()
+router.register(r'trip-income', TripIncomeViewSet)
+router.register(r'fleet-expense', FleetExpenseViewSet)
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
 
 
 
