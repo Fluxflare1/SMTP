@@ -1,3 +1,14 @@
+
+
+from celery import shared_task
+from .tasks import upcoming_maintenance_alert
+
+@shared_task
+def check_upcoming_maintenance():
+    upcoming_maintenance_alert()
+
+
+
 from __future__ import absolute_import, unicode_literals
 import os
 from celery import Celery
