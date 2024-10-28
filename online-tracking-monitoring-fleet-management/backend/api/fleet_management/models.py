@@ -1,5 +1,34 @@
 
 
+
+
+
+
+# Path: backend/api/fleet_management/models.py
+
+from django.db import models
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+class Invoice(models.Model):
+    client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="invoices")
+    trip = models.ForeignKey("Trip", on_delete=models.CASCADE, null=True, blank=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    issued_date = models.DateField(auto_now_add=True)
+    due_date = models.DateField()
+    status = models.CharField(max_length=20, choices=[("pending", "Pending"), ("paid", "Paid")])
+    description = models.TextField(blank=True)
+
+    def __str__(self):
+        return f"Invoice {self.id} - {self.client.username}"
+
+
+
+
+
+
+
 from django.db import models
 
 class Trip(models.Model):
