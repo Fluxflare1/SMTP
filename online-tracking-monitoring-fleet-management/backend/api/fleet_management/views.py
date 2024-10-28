@@ -1,6 +1,29 @@
 
 
 
+
+# Path: backend/api/fleet_management/views.py
+
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework import status
+from .utils import generate_invoice_pdf, send_invoice_email
+
+class InvoiceViewSet(viewsets.ModelViewSet):
+    # existing code...
+    
+    @action(detail=True, methods=["post"])
+    def send_pdf(self, request, pk=None):
+        invoice = self.get_object()
+        pdf_buffer = generate_invoice_pdf(invoice)
+        send_invoice_email(invoice, pdf_buffer)
+        return Response({"message": "Invoice PDF sent via email."}, status=status.HTTP_200_OK)
+
+
+
+
+
+
 # Path: backend/api/fleet_management/views.py
 
 from rest_framework import viewsets
