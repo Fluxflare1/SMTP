@@ -1,3 +1,18 @@
+
+
+from celery import shared_task
+from .models import DriverProfile
+from django.utils import timezone
+from .notifications import send_license_expiration_notification
+
+@shared_task
+def notify_expiring_licenses():
+    drivers = DriverProfile.objects.filter(license_expiration_date__lt=timezone.now().date() + timezone.timedelta(days=30))
+    for driver in drivers:
+        send_license_expiration_notification(driver)
+
+
+
 from celery import shared_task
 from .models import Invoice
 
