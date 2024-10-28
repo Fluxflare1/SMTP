@@ -3,6 +3,28 @@
 
 
 
+
+from django.db import models
+from django.utils import timezone
+
+class Invoice(models.Model):
+    ...
+    STATUS_CHOICES = [
+        ("pending", "Pending"),
+        ("paid", "Paid"),
+        ("overdue", "Overdue"),
+    ]
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="pending")
+    due_date = models.DateField(blank=True, null=True)
+
+    def check_overdue_status(self):
+        if self.due_date and self.due_date < timezone.now().date() and self.status != "paid":
+            self.status = "overdue"
+            self.save()
+
+
+
+
 from django.db import models
 from django.utils import timezone
 
