@@ -1,5 +1,29 @@
 
 
+
+
+
+from django.db import models
+from .vehicle import Vehicle
+from .driver import Driver
+
+class Trip(models.Model):
+    # existing fields...
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
+    start_location = models.CharField(max_length=255)
+    end_location = models.CharField(max_length=255)
+    expense_threshold = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    total_expense = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    
+    def calculate_total_expense(self):
+        # Placeholder for the actual expense calculation
+        # This could include fuel, tolls, and other trip-related expenses
+        return self.total_expense
+
+
+
+
 from django.db import models
 from django.contrib.auth import get_user_model
 from datetime import timedelta
@@ -13,8 +37,6 @@ class DriverDocumentation(models.Model):
 
     def is_expiring_soon(self):
         return self.expiration_date <= timezone.now().date() + timedelta(days=30)  # 30-day threshold
-
-
 
 
 
