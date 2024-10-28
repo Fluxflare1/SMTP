@@ -1,6 +1,24 @@
 
 
 
+
+from rest_framework import serializers
+from .models import VehiclePerformance, VehicleUsage
+
+class VehiclePerformanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VehiclePerformance
+        fields = ["vehicle", "date_recorded", "mileage", "fuel_efficiency", "issues_reported"]
+
+class VehicleUsageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VehicleUsage
+        fields = ["vehicle", "date", "trip_count", "total_distance"]
+
+
+
+
+
 from .models import Driver, DriverCredential
 from django.contrib.auth.models import User
 from rest_framework import serializers
