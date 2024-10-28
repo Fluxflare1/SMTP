@@ -1,6 +1,26 @@
 
 
 
+
+from django.db import models
+
+class Client(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+
+class Invoice(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    total_income = models.DecimalField(max_digits=10, decimal_places=2)
+    total_expense = models.DecimalField(max_digits=10, decimal_places=2)
+    total_profit = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateField(auto_now_add=True)
+    due_date = models.DateField()
+    is_paid = models.BooleanField(default=False)
+
+
+
+
 from django.db import models
 
 class TripIncome(models.Model):
