@@ -1,5 +1,17 @@
 
 
+
+from celery.schedules import crontab
+
+app.conf.beat_schedule = {
+    "check-trip-expenses-every-hour": {
+        "task": "fleet_management.tasks.check_trip_expenses",
+        "schedule": crontab(minute=0, hour="*"),  # Runs hourly
+    },
+}
+
+
+
 from celery import shared_task
 from .tasks import check_document_expirations
 
