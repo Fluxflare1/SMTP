@@ -1,6 +1,23 @@
 
 
 
+# Path: backend/api/fleet_management/views.py
+
+from rest_framework import viewsets
+from .models import Invoice
+from .serializers import InvoiceSerializer
+from rest_framework.permissions import IsAuthenticated
+
+class InvoiceViewSet(viewsets.ModelViewSet):
+    queryset = Invoice.objects.all()
+    serializer_class = InvoiceSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(client=self.request.user)
+
+
+
 
 
 from rest_framework import generics, views
