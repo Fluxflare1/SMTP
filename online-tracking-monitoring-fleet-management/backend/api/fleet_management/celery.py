@@ -1,6 +1,20 @@
 
 
 
+
+from celery.schedules import crontab
+from .tasks import app
+
+app.conf.beat_schedule.update({
+    "check-driver-credentials-expiration-daily": {
+        "task": "fleet_management.tasks.check_driver_credentials_expiration",
+        "schedule": crontab(hour=0, minute=0),  # Runs daily at midnight
+    },
+})
+
+
+
+
 from celery.schedules import crontab
 
 app.conf.beat_schedule = {
