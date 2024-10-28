@@ -1,5 +1,17 @@
 
 
+
+
+from celery import shared_task
+from .tasks import geofence_alert
+
+@shared_task
+def check_geofence_status():
+    geofence_alert()
+
+
+
+
 from celery import shared_task
 from .tasks import vehicle_health_alert
 
