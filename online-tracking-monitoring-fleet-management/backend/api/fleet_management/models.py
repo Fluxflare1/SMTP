@@ -1,5 +1,19 @@
 
 
+
+from django.db import models
+
+class DriverBehaviorEvent(models.Model):
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    driver = models.ForeignKey('Driver', on_delete=models.CASCADE)
+    event_type = models.CharField(max_length=50)  # e.g., "Speeding", "Harsh Braking"
+    description = models.TextField(blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+
+
+
+
 from django.db import models
 
 class Geofence(models.Model):
