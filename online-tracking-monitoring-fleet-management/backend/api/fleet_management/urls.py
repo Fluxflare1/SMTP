@@ -1,4 +1,13 @@
 
+from django.urls import path
+from .views.gps_tracking_view import GPSTrackingListCreateView, GPSTrackingDetailView
+
+urlpatterns = [
+    path('gps/', GPSTrackingListCreateView.as_view(), name='gps_list_create'),
+    path('gps/<int:pk>/', GPSTrackingDetailView.as_view(), name='gps_detail'),
+    # Other paths for fleet management
+]
+
 
 
 
