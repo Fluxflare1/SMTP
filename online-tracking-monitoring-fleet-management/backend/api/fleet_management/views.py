@@ -4,6 +4,19 @@
 
 
 from rest_framework.views import APIView
+from .models import Incident
+from rest_framework.response import Response
+
+class ResolveIncidentView(APIView):
+    def post(self, request, incident_id):
+        incident = Incident.objects.get(id=incident_id)
+        incident.resolved = True
+        incident.save()
+        return Response({"status": "Incident resolved"})
+
+
+
+from rest_framework.views import APIView
 from .models import VehicleLocation
 from rest_framework.response import Response
 from django.utils.dateparse import parse_datetime
