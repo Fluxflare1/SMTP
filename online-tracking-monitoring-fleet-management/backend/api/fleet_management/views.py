@@ -2,6 +2,30 @@
 
 
 
+
+from rest_framework.views import APIView
+from .models import VehicleLocation
+from rest_framework.response import Response
+from django.utils.dateparse import parse_datetime
+
+class RouteHistoryReplayView(APIView):
+    def get(self, request, vehicle_id):
+        start_time = parse_datetime(request.query_params.get("start_time"))
+        end_time = parse_datetime(request.query_params.get("end_time"))
+        locations = VehicleLocation.objects.filter(
+            vehicle_id=vehicle_id,
+            timestamp__range=(start_time, end_time)
+        ).order_by("timestamp")
+        
+        serialized_data = [
+            {"latitude": loc.latitude, "longitude": loc.longitude, "timestamp": loc.timestamp}
+            for loc in locations
+        ]
+        return Response(serialized_data)
+
+
+
+
 # Path: backend/api/fleet_management/views.py
 
 from rest_framework.decorators import action
