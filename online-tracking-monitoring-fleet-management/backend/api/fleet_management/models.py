@@ -2,7 +2,15 @@
 
 
 
+from django.db import models
 
+class Geofence(models.Model):
+    name = models.CharField(max_length=100)
+    coordinates = models.JSONField()  # Stores geofence as a list of coordinates
+    is_active = models.BooleanField(default=True)  # Enable/disable geofence
+
+    def __str__(self):
+        return self.name
 
 
 
