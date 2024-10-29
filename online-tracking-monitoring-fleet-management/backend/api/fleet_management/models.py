@@ -2,6 +2,17 @@
 
 
 
+class DriverSafetyScore(models.Model):
+    driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
+    score = models.FloatField()
+    speeding_count = models.IntegerField()
+    harsh_braking_count = models.IntegerField()
+    sudden_acceleration_count = models.IntegerField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+
+
+
 class Incident(models.Model):
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
     incident_type = models.CharField(max_length=50)
