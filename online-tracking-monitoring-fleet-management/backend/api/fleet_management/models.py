@@ -2,6 +2,19 @@
 
 
 
+class Incident(models.Model):
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    incident_type = models.CharField(max_length=50)
+    severity = models.CharField(max_length=10, choices=[("Low", "Low"), ("Medium", "Medium"), ("High", "High")])
+    description = models.TextField()
+    resolved = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.vehicle} - {self.incident_type} ({self.severity})"
+
+
+
 from django.db import models
 
 class Geofence(models.Model):
