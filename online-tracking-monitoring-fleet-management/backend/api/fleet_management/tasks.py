@@ -1,5 +1,41 @@
 
 
+
+from celery import shared_task
+from django.core.mail import send_mail
+from django.utils.html import strip_tags
+from .models import NotificationLog, Vehicle
+from django.template.loader import render_to_string
+
+@shared_task(bind=True, max_retries=3, default_retry_delay=60)
+def retry_failed_notifications(self, log_id):
+    log_entry = NotificationLog.objects.get(id=log_id)
+    vehicle = log_entry.vehicle
+
+    html_message = render_to_string("notifications/vehicle_reactivation.html", {
+        "driver_name": vehicle.assigned_driver.name if vehicle.assigned_driver else "Driver",
+        "vehicle_registration_number": vehicle.registration_number,
+    })
+    plain_message = strip_tags(html_message)
+    recipient = log_entry.recipient
+
+    try:
+        send_mail(
+            "Vehicle Re-Activated",
+            plain_message,
+            settings.DEFAULT_FROM_EMAIL,
+            [recipient],
+            html_message=html_message,
+        )
+        log_entry.status = "sent"
+    except Exception as exc:
+        log_entry.status = "failed"
+        self.retry(exc=exc)
+    
+    log_entry.save()
+
+
+
 from celery import shared_task
 from .models import DriverProfile
 from django.utils import timezone
