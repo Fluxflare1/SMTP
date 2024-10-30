@@ -5,6 +5,39 @@
 
 
 from rest_framework import serializers
+from .models import Trip, Vehicle, Driver
+from django.utils import timezone
+
+class TripSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trip
+        fields = ['id', 'vehicle', 'driver', 'origin', 'destination', 'start_time', 'end_time', 'status']
+
+    def validate(self, data):
+        vehicle = data.get('vehicle')
+        driver = data.get('driver')
+        start_time = data.get('start_time')
+        end_time = data.get('end_time')
+
+        # Ensure vehicle and driver are available
+        if Trip.objects.filter(vehicle=vehicle, start_time__lt=end_time, end_time__gt=start_time).exists():
+            raise serializers.ValidationError("Selected vehicle is not available at this time.")
+        if Trip.objects.filter(driver=driver, start_time__lt=end_time, end_time__gt=start_time).exists():
+            raise serializers.ValidationError("Selected driver is not available at this time.")
+
+        # Check origin and destination format requirements (example)
+        if not data['origin']:
+            raise serializers.ValidationError("Origin cannot be empty.")
+        if not data['destination']:
+            raise serializers.ValidationError("Destination cannot be empty.")
+
+        return data
+
+
+
+
+
+from rest_framework import serializers
 
 class VehicleImmobilizationSerializer(serializers.Serializer):
     vehicle_id = serializers.IntegerField()
