@@ -1,5 +1,15 @@
 
 
+# backend/api/urls.py
+
+from django.urls import path, include
+
+urlpatterns = [
+    path('dispatcher/', include('backend.api.dispatcher.urls')),
+    # other app urls here
+]
+
+
 
 from django.urls import path, include
 
