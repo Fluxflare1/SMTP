@@ -1,6 +1,24 @@
 
 
+import requests
+from django.conf import settings
 
+def immobilize_vehicle(vehicle_id):
+    """
+    Send a request to the external IoT service to immobilize a vehicle.
+    :param vehicle_id: Unique identifier of the vehicle to immobilize
+    :return: Response from the IoT service
+    """
+    url = settings.VEHICLE_IMMOBILIZATION_API_URL
+    headers = {
+        "Authorization": f"Bearer {settings.VEHICLE_IMMOBILIZATION_API_KEY}"
+    }
+    data = {
+        "vehicle_id": vehicle_id
+    }
+    response = requests.post(url, headers=headers, json=data)
+    response.raise_for_status()
+    return response.json()
 
 
 
