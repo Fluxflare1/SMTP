@@ -1,3 +1,18 @@
+
+
+
+
+
+from rest_framework import serializers
+
+class RouteOptimizationSerializer(serializers.Serializer):
+    origin = serializers.ListField(child=serializers.FloatField(), min_length=2, max_length=2)
+    destination = serializers.ListField(child=serializers.FloatField(), min_length=2, max_length=2)
+    waypoints = serializers.ListField(child=serializers.ListField(child=serializers.FloatField(), min_length=2, max_length=2), required=False)
+
+
+
+
 from rest_framework import serializers
 from .models import Vehicle
 
