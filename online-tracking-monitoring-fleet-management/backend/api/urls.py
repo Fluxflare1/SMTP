@@ -14,6 +14,16 @@ urlpatterns = [
 from django.urls import path, include
 
 urlpatterns = [
+    path('fleet/', include('api.fleet_management.urls')),
+    # ... other paths
+]
+
+
+
+
+from django.urls import path, include
+
+urlpatterns = [
     path('dispatcher/', include('api.dispatcher_panel.urls')),
     # ... other paths
 ]
