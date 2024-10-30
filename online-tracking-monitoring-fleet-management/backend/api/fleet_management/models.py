@@ -3,6 +3,18 @@
 
 
 
+
+from django.db import models
+
+class Vehicle(models.Model):
+    # Existing fields...
+    is_immobilized = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name  # Example field
+
+
+
 class Vehicle(models.Model):
     STATUS_CHOICES = [
         ('available', 'Available'),
