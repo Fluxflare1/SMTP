@@ -1,4 +1,24 @@
 
+
+# backend/api/fleet_management/serializers.py
+
+from .models import Vehicle
+from rest_framework import serializers
+
+class RealTimeVehicleStatusSerializer(serializers.ModelSerializer):
+    current_location = serializers.SerializerMethodField()
+    availability_status = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Vehicle
+        fields = ['id', 'vehicle_name', 'current_location', 'availability_status']
+
+    def get_current_location(self, obj):
+        return obj.get_current_location()  # Could retrieve location from internal or external tracking
+
+
+
+
 # backend/api/fleet_management/serializers.py
 
 from rest_framework import serializers
