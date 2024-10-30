@@ -1,5 +1,16 @@
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from .models import Vehicle
 
+@receiver(post_save, sender=Vehicle)
+def send_immobilization_notification(sender, instance, **kwargs):
+    if instance.is_immobilized:
+        # Logic for sending notification, e.g., email, push notification
+        send_notification(
+            title="Vehicle Immobilized",
+            message=f"Vehicle {instance.id} has been immobilized.",
+        )
 
 
 
