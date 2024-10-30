@@ -1,6 +1,13 @@
 
 
 
+from django.urls import path
+from .views import RouteOptimizationView
+
+urlpatterns += [
+    path('route-optimization/', RouteOptimizationView.as_view(), name='route-optimization'),
+]
+
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
