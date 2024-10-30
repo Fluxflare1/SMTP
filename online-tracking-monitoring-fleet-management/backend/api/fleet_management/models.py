@@ -1,4 +1,26 @@
 
+
+
+
+from django.db import models
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+class NotificationPreference(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    notification_type = models.CharField(max_length=50)
+    enabled = models.BooleanField(default=True)
+
+    class Meta:
+        unique_together = ('user', 'notification_type')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.notification_type}: {'Enabled' if self.enabled else 'Disabled'}"
+
+
+
+
 from django.db import models
 
 class NotificationLog(models.Model):
