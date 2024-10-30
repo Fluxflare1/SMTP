@@ -1,12 +1,34 @@
 
 
+
+
+
+
+
+from rest_framework.response import Response
+from rest_framework import status
+
+class VehicleImmobilizationConfirmView(APIView):
+    permission_classes = [IsAuthenticated, CanImmobilizeVehicle]
+
+    def post(self, request, vehicle_id):
+        vehicle = Vehicle.objects.get(id=vehicle_id)
+        if not vehicle.is_immobilized:
+            # Mark for confirmation
+            vehicle.pending_immobilization = True
+            vehicle.save()
+            return Response({"message": "Confirm immobilization by re-sending this request"}, status=status.HTTP_202_ACCEPTED)
+        return Response({"error": "Vehicle already immobilized"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
 from rest_framework.permissions import IsAuthenticated
 from .permissions import CanImmobilizeVehicle
 
 class VehicleImmobilizationView(APIView):
     permission_classes = [IsAuthenticated, CanImmobilizeVehicle]
     # Existing code...
-
 
 
 
