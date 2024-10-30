@@ -1,4 +1,20 @@
 
+
+
+
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import VehicleStatusViewSet
+
+router = DefaultRouter()
+router.register(r'vehicle-status', VehicleStatusViewSet, basename='vehicle-status')
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
+
+
+
 from django.urls import path
 from .views.gps_tracking_view import GPSTrackingListCreateView, GPSTrackingDetailView
 
