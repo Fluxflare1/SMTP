@@ -1,5 +1,20 @@
 
 
+
+
+
+
+
+from django.utils import timezone
+
+def immobilize_vehicle(vehicle_id, user):
+    # Perform immobilization
+    logger.info(f"Vehicle {vehicle_id} immobilized by {user.username} at {timezone.now()}")
+
+
+
+
+
 import logging
 
 logger = logging.getLogger(__name__)
