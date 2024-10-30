@@ -1,5 +1,15 @@
 
 
+import logging
+
+logger = logging.getLogger(__name__)
+
+def immobilize_vehicle(vehicle_id):
+    # Existing code...
+    logger.info(f"Vehicle {vehicle_id} immobilized by user")
+
+
+
 import requests
 from django.conf import settings
 
