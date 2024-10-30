@@ -1,5 +1,15 @@
 
+from django.db import models
 
+class NotificationLog(models.Model):
+    notification_type = models.CharField(max_length=50)
+    recipient = models.EmailField()
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    sent_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=10, choices=[("sent", "Sent"), ("failed", "Failed")])
+
+    def __str__(self):
+        return f"{self.notification_type} to {self.recipient} at {self.sent_at}"
 
 
 
