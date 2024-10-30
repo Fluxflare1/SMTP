@@ -3,6 +3,35 @@
 
 
 
+
+
+from .models import Trip
+from django.utils import timezone
+from django.core.mail import send_mail
+
+def notify_driver_of_trip(trip_id):
+    trip = Trip.objects.get(id=trip_id)
+    # Logic to send email/SMS notification to the driver about the scheduled trip
+    send_mail(
+        'Trip Scheduled',
+        f'You have a trip scheduled from {trip.origin} to {trip.destination}.',
+        'noreply@company.com',
+        [trip.driver.email],
+    )
+
+def send_reminder_for_trip(trip_id):
+    trip = Trip.objects.get(id=trip_id)
+    send_mail(
+        'Upcoming Trip Reminder',
+        f'Reminder: You have a trip starting in 15 minutes from {trip.origin}.',
+        'noreply@company.com',
+        [trip.driver.email],
+    )
+
+
+
+
+
 def send_vehicle_reactivation_notification(vehicle, recipients):
     subject = "Vehicle Re-Activated"
     html_message = render_to_string("notifications/vehicle_reactivation.html", {
