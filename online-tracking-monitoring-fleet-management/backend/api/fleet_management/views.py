@@ -1,5 +1,22 @@
 
 
+
+# backend/api/fleet_management/views.py
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .models import Vehicle
+from .serializers import RealTimeVehicleStatusSerializer
+
+class RealTimeVehicleStatusView(APIView):
+    def get(self, request):
+        vehicles = Vehicle.objects.all()
+        serializer = RealTimeVehicleStatusSerializer(vehicles, many=True)
+        return Response(serializer.data)
+
+
+
+
 from rest_framework import viewsets
 from .models import Trip
 from .serializers import TripSerializer
