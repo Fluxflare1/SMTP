@@ -2,6 +2,23 @@
 
 
 
+
+class Vehicle(models.Model):
+    STATUS_CHOICES = [
+        ('available', 'Available'),
+        ('in_use', 'In Use'),
+        ('maintenance', 'Maintenance'),
+        ('unavailable', 'Unavailable')
+    ]
+    name = models.CharField(max_length=100)
+    type = models.CharField(max_length=50)
+    registration_number = models.CharField(max_length=20)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
+
+    # Other fields and methods
+
+
+
 class DriverSafetyScore(models.Model):
     driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
     score = models.FloatField()
