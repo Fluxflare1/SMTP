@@ -1,6 +1,24 @@
 
 
 
+
+from celery import shared_task
+from .notifications import send_reminder_for_trip
+from .models import Trip
+from django.utils import timezone
+from datetime import timedelta
+
+@shared_task
+def schedule_trip_notifications():
+    now = timezone.now()
+    upcoming_trips = Trip.objects.filter(start_time__gte=now, start_time__lte=now + timedelta(minutes=15))
+    for trip in upcoming_trips:
+        send_reminder_for_trip(trip.id)
+
+
+
+
+
 from celery import shared_task
 from django.core.mail import send_mail
 from django.utils.html import strip_tags
