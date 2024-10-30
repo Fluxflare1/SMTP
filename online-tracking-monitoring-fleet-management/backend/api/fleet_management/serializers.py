@@ -3,6 +3,15 @@
 
 
 
+
+from rest_framework import serializers
+
+class VehicleImmobilizationSerializer(serializers.Serializer):
+    vehicle_id = serializers.IntegerField()
+
+
+
+
 from rest_framework import serializers
 
 class RouteOptimizationSerializer(serializers.Serializer):
