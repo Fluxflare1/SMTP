@@ -1,3 +1,21 @@
+
+
+from rest_framework import viewsets
+from .models import Trip
+from .serializers import TripSerializer
+from .permissions import IsDispatcherOrAdmin
+
+class TripViewSet(viewsets.ModelViewSet):
+    queryset = Trip.objects.all()
+    serializer_class = TripSerializer
+    permission_classes = [IsDispatcherOrAdmin]
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
+
+
+
 from .models import NotificationPreference
 
 def get_active_recipients(notification_type):
