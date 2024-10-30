@@ -1,5 +1,23 @@
 
+# backend/api/fleet_management/serializers.py
 
+from rest_framework import serializers
+from .models import Vehicle, Trip
+
+class RealTimeVehicleStatusSerializer(serializers.ModelSerializer):
+    current_location = serializers.SerializerMethodField()
+    availability_status = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Vehicle
+        fields = ['id', 'vehicle_name', 'current_location', 'availability_status']
+
+    def get_current_location(self, obj):
+        # Assuming there's a method or related field that provides current location
+        return obj.get_current_location()
+
+    def get_availability_status(self, obj):
+        return "Available" if not obj.is_in_transit else "In Transit"
 
 
 
