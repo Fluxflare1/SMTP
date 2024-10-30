@@ -1,6 +1,26 @@
 
 
 
+class NotificationLog(models.Model):
+    PRIORITY_CHOICES = [
+        ('low', 'Low'),
+        ('normal', 'Normal'),
+        ('high', 'High')
+    ]
+
+    notification_type = models.CharField(max_length=50)
+    recipient = models.EmailField()
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    sent_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=10, choices=[("sent", "Sent"), ("failed", "Failed")])
+    priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default='normal')
+
+    def __str__(self):
+        return f"{self.notification_type} to {self.recipient} at {self.sent_at} - {self.priority}"
+
+
+
+
 
 from django.db import models
 from django.contrib.auth import get_user_model
