@@ -1,5 +1,19 @@
 
 
+# backend/api/fleet_management/models.py
+
+from django.db import models
+
+class Vehicle(models.Model):
+    vehicle_name = models.CharField(max_length=100)
+    is_in_transit = models.BooleanField(default=False)
+    current_location = models.JSONField(null=True, blank=True)  # Stores GPS coordinates or location data
+
+    def get_current_location(self):
+        return self.current_location
+
+
+
 
 class NotificationLog(models.Model):
     PRIORITY_CHOICES = [
