@@ -2,6 +2,16 @@
 
 
 
+from rest_framework import viewsets
+from .models import Vehicle
+from .serializers import VehicleStatusSerializer
+
+class VehicleStatusViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Vehicle.objects.all()
+    serializer_class = VehicleStatusSerializer
+
+
+
 
 from rest_framework.views import APIView
 from .models import Incident
