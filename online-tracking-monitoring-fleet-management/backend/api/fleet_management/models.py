@@ -1,4 +1,18 @@
 
+
+
+
+
+from django.db import models
+
+class Vehicle(models.Model):
+    # Existing fields...
+    immobilization_reason = models.CharField(max_length=255, blank=True, null=True)
+    # New fields...
+
+
+
+
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .models import Vehicle
