@@ -1,6 +1,18 @@
 
 
 
+# backend/api/fleet_management/urls.py
+
+from django.urls import path
+from .views import RealTimeVehicleStatusView
+
+urlpatterns = [
+    path('real-time-status/', RealTimeVehicleStatusView.as_view(), name='real-time-vehicle-status'),
+]
+
+
+
+
 from django.urls import path
 from .views import RouteOptimizationView
 
