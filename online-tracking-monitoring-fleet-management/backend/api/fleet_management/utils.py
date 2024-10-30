@@ -3,6 +3,36 @@
 
 
 
+
+
+import requests
+from django.conf import settings
+
+def get_optimized_route(origin, destination, waypoints=None):
+    """
+    Fetch optimized route from external service.
+    :param origin: Starting point (latitude, longitude)
+    :param destination: Ending point (latitude, longitude)
+    :param waypoints: Optional list of waypoints for the route
+    :return: Optimized route data
+    """
+    api_key = settings.ROUTE_OPTIMIZATION_API_KEY
+    url = "https://maps.googleapis.com/maps/api/directions/json"  # Google Maps API endpoint
+    params = {
+        'origin': f"{origin[0]},{origin[1]}",
+        'destination': f"{destination[0]},{destination[1]}",
+        'waypoints': '|'.join([f"{wp[0]},{wp[1]}" for wp in waypoints]) if waypoints else None,
+        'key': api_key
+    }
+    response = requests.get(url, params=params)
+    response.raise_for_status()
+    return response.json()
+
+
+
+
+
+
 # Path: backend/api/fleet_management/utils.py
 
 from django.core.mail import EmailMessage
