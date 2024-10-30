@@ -1,5 +1,37 @@
 
+from .models import NotificationLog
 
+def send_vehicle_reactivation_notification(vehicle):
+    subject = "Vehicle Re-Activated"
+    html_message = render_to_string("notifications/vehicle_reactivation.html", {
+        "driver_name": vehicle.assigned_driver.name if vehicle.assigned_driver else "Driver",
+        "vehicle_registration_number": vehicle.registration_number,
+    })
+    plain_message = strip_tags(html_message)
+    recipient_list = [vehicle.assigned_driver.email] if vehicle.assigned_driver else []
+
+    # Send email notification and log result
+    try:
+        send_mail(
+            subject,
+            plain_message,
+            settings.DEFAULT_FROM_EMAIL,
+            recipient_list,
+            html_message=html_message,
+        )
+        NotificationLog.objects.create(
+            notification_type="Vehicle Re-Activation",
+            recipient=recipient_list[0],
+            vehicle=vehicle,
+            status="sent",
+        )
+    except Exception as e:
+        NotificationLog.objects.create(
+            notification_type="Vehicle Re-Activation",
+            recipient=recipient_list[0] if recipient_list else "N/A",
+            vehicle=vehicle,
+            status="failed",
+        )
 
 
 
