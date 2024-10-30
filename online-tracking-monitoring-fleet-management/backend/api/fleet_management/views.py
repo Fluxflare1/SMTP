@@ -1,6 +1,52 @@
 
 
 
+
+
+
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Vehicle
+from .serializers import VehicleImmobilizationSerializer
+from .utils import immobilize_vehicle
+
+class VehicleImmobilizationView(APIView):
+    def post(self, request):
+        serializer = VehicleImmobilizationSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        vehicle_id = serializer.validated_data["vehicle_id"]
+
+        try:
+            # Immobilize vehicle using the external service
+            immobilization_response = immobilize_vehicle(vehicle_id)
+            
+            # Update immobilization status in the database
+            vehicle = Vehicle.objects.get(id=vehicle_id)
+            vehicle.is_immobilized = True
+            vehicle.save()
+
+            return Response(
+                {"status": "Vehicle immobilized", "data": immobilization_response},
+                status=status.HTTP_200_OK
+            )
+        except Vehicle.DoesNotExist:
+            return Response(
+                {"error": "Vehicle not found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
+
+
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
