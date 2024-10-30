@@ -1,6 +1,11 @@
 
 
+from rest_framework.permissions import IsAuthenticated
+from .permissions import CanImmobilizeVehicle
 
+class VehicleImmobilizationView(APIView):
+    permission_classes = [IsAuthenticated, CanImmobilizeVehicle]
+    # Existing code...
 
 
 
