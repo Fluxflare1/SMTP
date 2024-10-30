@@ -1,4 +1,12 @@
+from .models import NotificationPreference
 
+def get_active_recipients(notification_type):
+    return [
+        pref.user.email
+        for pref in NotificationPreference.objects.filter(
+            notification_type=notification_type, enabled=True
+        )
+    ]
 
 
 
