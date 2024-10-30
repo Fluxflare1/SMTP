@@ -1,5 +1,18 @@
 
 
+class VehicleImmobilizationView(APIView):
+    def post(self, request, vehicle_id):
+        vehicle = Vehicle.objects.get(id=vehicle_id)
+        reason = request.data.get("reason")
+        
+        if not reason:
+            return Response({"error": "Reason for immobilization required"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        vehicle.is_immobilized = True
+        vehicle.immobilization_reason = reason
+        vehicle.save()
+        
+        # Additional code for logging and notification...
 
 
 
