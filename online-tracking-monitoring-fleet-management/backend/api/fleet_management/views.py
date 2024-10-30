@@ -1,5 +1,26 @@
 
 
+
+
+class VehicleReactivateView(APIView):
+    permission_classes = [IsAuthenticated, CanImmobilizeVehicle]
+
+    def post(self, request, vehicle_id):
+        vehicle = Vehicle.objects.get(id=vehicle_id)
+        
+        if vehicle.is_immobilized:
+            vehicle.is_immobilized = False
+            vehicle.immobilization_reason = None  # Clear reason on re-activation
+            vehicle.save()
+            logger.info(f"Vehicle {vehicle_id} re-activated by {request.user.username} at {timezone.now()}")
+            return Response({"message": "Vehicle re-activated"}, status=status.HTTP_200_OK)
+        
+        return Response({"error": "Vehicle is not immobilized"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
 class VehicleImmobilizationView(APIView):
     def post(self, request, vehicle_id):
         vehicle = Vehicle.objects.get(id=vehicle_id)
