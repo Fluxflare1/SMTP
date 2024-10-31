@@ -1,3 +1,25 @@
+
+
+
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+// In your TripScheduler component
+const TripScheduler = () => {
+  const [tripDate, setTripDate] = useState(new Date());
+
+  return (
+    <DatePicker
+      selected={tripDate}
+      onChange={(date) => setTripDate(date)}
+      showTimeSelect
+      dateFormat="Pp"
+    />
+  );
+};
+
+
+
 import React, { useState } from 'react';
 import { scheduleTrip } from '../services/api';
 
