@@ -1,5 +1,15 @@
 
 
+
+
+class Trip(models.Model):
+    ...
+    status_details = models.CharField(max_length=255, blank=True, null=True)  # New field
+
+
+
+
+
 # backend/api/fleet_management/models.py
 
 from django.db import models
