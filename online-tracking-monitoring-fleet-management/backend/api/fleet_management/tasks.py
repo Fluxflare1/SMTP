@@ -2,6 +2,32 @@
 
 
 
+
+
+from celery import shared_task
+from django.core.mail import send_mail
+from .models import Trip
+
+@shared_task
+def send_trip_notification(trip_id):
+    try:
+        trip = Trip.objects.get(id=trip_id)
+        message = f"Trip scheduled: {trip.start_time} - {trip.end_time}. Please be prepared."
+        send_mail(
+            'Trip Notification',
+            message,
+            'no-reply@fleetmanagement.com',
+            [trip.driver.email],
+            fail_silently=False,
+        )
+    except Trip.DoesNotExist:
+        # Handle case where trip doesn't exist
+        pass
+
+
+
+
+
 from celery import shared_task
 from .notifications import send_reminder_for_trip
 from .models import Trip
