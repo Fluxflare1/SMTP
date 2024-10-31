@@ -1,0 +1,11 @@
+.trip-scheduler {
+  width: 100%;
+  max-width: 800px;
+}
+
+@media (max-width: 768px) {
+  .trip-scheduler {
+    width: 100%;
+    padding: 0;
+  }
+}
