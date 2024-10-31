@@ -1,3 +1,16 @@
+
+
+from .tasks import send_trip_notification
+
+class TripViewSet(viewsets.ModelViewSet):
+    ...
+    def perform_create(self, serializer):
+        trip = serializer.save(dispatcher=self.request.user)
+        # Schedule the notification
+        send_trip_notification.delay(trip.id)
+
+
+
 from rest_framework import viewsets
 from .permissions import IsDispatcherOrAdminOrFleetManager
 from .models import Trip
