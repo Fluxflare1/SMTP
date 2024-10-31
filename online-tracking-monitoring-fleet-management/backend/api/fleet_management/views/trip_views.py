@@ -1,5 +1,20 @@
 
 
+
+class TripViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint for managing trips.
+
+    - **Permissions**: Only dispatchers, admins, or fleet managers.
+    - **Validation**: Ensures vehicles and drivers are available.
+    - **Notifications**: Drivers receive notifications on trip creation.
+    """
+    ...
+
+
+
+
+
 from .tasks import send_trip_notification
 
 class TripViewSet(viewsets.ModelViewSet):
