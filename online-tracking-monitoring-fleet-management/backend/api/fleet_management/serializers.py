@@ -1,5 +1,16 @@
 
 
+
+from rest_framework import serializers
+from .models import Trip
+
+class TripSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trip
+        fields = '__all__'
+
+
+
 # backend/api/fleet_management/serializers.py
 
 from .models import Vehicle
