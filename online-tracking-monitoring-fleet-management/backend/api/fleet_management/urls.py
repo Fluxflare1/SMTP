@@ -1,6 +1,15 @@
 
 
 
+from django.urls import path
+from .views.user_preferences import NotificationPreferencesView
+
+urlpatterns = [
+    path('user/preferences/notifications', NotificationPreferencesView.as_view(), name='notification-preferences'),
+]
+
+
+
 # backend/api/fleet_management/urls.py
 
 from django.urls import path
