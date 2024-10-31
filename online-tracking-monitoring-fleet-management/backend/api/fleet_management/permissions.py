@@ -1,5 +1,26 @@
 
 
+
+
+from rest_framework import permissions
+
+class IsDispatcherOrAdminOrFleetManager(permissions.BasePermission):
+    def has_permission(self, request, view):
+        # Allow only users with dispatcher, admin, or fleet manager roles
+        return request.user and (
+            request.user.is_staff or  # admin
+            request.user.role in ['dispatcher', 'fleet_manager']  # custom roles
+        )
+
+    def has_object_permission(self, request, view, obj):
+        # Ensure only assigned dispatchers and admins can modify trips
+        return self.has_permission(request, view)
+
+
+
+
+
+
 from rest_framework.permissions import BasePermission
 
 class IsDispatcherOrAdmin(BasePermission):
